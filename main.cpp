@@ -1,6 +1,9 @@
+#include "mesh/itf/mesh.h"
+
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_ttf.h"
 
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -8,8 +11,34 @@
 const unsigned int WINDOW_WIDTH = 640;
 const unsigned int WINDOW_HEIGHT = 480;
 
+void printUsage()
+{
+    std::cout << "Usage: lightbox <filename.obj> [-h]" << std::endl;
+}
+
 int main(int argc, char **argv)
 {
+    // Determine the name of the OBJ mesh to render.
+    if (argc != 2)
+    {
+        printUsage();
+        return 1;
+    }
+
+    if (argv[1] == "-h")
+    {
+        printUsage();
+        return 0;
+    }
+
+    std::string objMeshFileName = argv[1];
+    std::ifstream objMeshFile(objMeshFileName);
+    if (!objMeshFile)
+    {
+        std::cerr << "Could not open OBJ file '" << objMeshFileName << "'." << std::endl;
+        return 1;
+    }
+
     if (SDL_Init(SDL_INIT_VIDEO) == -1)
     {
         std::cerr << SDL_GetError() << std::endl;
@@ -53,6 +82,7 @@ int main(int argc, char **argv)
     if (texture == nullptr)
     {
         std::cerr << SDL_GetError() << std::endl;
+        return 1;
     }
 
     // Create our buffer that represents the pixels on screen.
