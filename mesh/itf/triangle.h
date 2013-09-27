@@ -3,23 +3,30 @@
 
 #include "math/itf/vector.h"
 
-#include "triangle.h"
+#include <ostream>
 
 namespace lb {
 namespace mesh {
 
+/// A vertex is represented by a vector.
+typedef math::Vector Vertex;
+
 class Triangle
 {
     public:
-        Triangle(const math::Vector &v0, const math::Vector &v1, const math::Vector &v2);
+        Triangle(const Vertex &v0, const Vertex &v1, const Vertex &v2);
 
-    private:
-        /// Three vectors uniquely defining the three corners of this triangle.
-        /// FIXME: Make this a Doxygen group comment.
-        math::Vector _v0;
-        math::Vector _v1;
-        math::Vector _v2;
+        bool operator==(const Triangle &rhs) const;
+
+        ///@{
+        /// Three vertices uniquely defining the three corners of this triangle.
+        Vertex a;
+        Vertex b;
+        Vertex c;
+        ///@}
 };
+
+std::ostream &operator<<(std::ostream &out, const Triangle &triangle);
 
 }}
 

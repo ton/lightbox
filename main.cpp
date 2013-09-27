@@ -88,6 +88,9 @@ int main(int argc, char **argv)
     // Create our buffer that represents the pixels on screen.
     uint32_t *pixels = new uint32_t[WINDOW_WIDTH * WINDOW_HEIGHT];
 
+    // Load the triangle mesh.
+    lb::mesh::Mesh m = lb::mesh::Mesh::loadFromObj(objMeshFile);
+
     SDL_Event e;
     bool quit = false;
     while (!quit)

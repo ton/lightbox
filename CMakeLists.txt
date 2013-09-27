@@ -51,4 +51,4 @@ add_executable(run_tests
   tests/main.cpp
 )
 
-target_link_libraries(run_tests gtest gtest_main)
+target_link_libraries(run_tests gtest gtest_main lb_mesh lb_math)

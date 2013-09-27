@@ -11,18 +11,23 @@
 namespace lb {
 namespace mesh {
 
-/// For now, a vertex is represented by a vector, but this might change in the
-/// future.
-typedef math::Vector Vertex;
-
 /// Class representing an unstructured triangle mesh.
 class Mesh
 {
     public:
-        static Mesh loadFromObj(const std::ifstream &objFile);
+        static Mesh loadFromObj(std::ifstream &objFile);
+
+        /// Adds triangle \a t to this mesh.
+        ///
+        /// \param t triange to add to this mesh
+        void addTriangle(const Triangle &t) { _triangles.push_back(t); }
+
+        /// Returns all triangles in this mesh.
+        ///
+        /// \return all trianges in this mesh
+        const std::vector<Triangle> &triangles() { return _triangles; }
 
     private:
-        std::vector<mesh::Vertex> _vertices;
         std::vector<mesh::Triangle> _triangles;
 };
 
