@@ -19,7 +19,10 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build/lib")
 include_directories(.)
 
 add_subdirectory(math)
+add_subdirectory(core)
 add_subdirectory(mesh)
+add_subdirectory(renderers)
+add_subdirectory(ui)
 
 set(SOURCES
   main.cpp
@@ -40,7 +43,7 @@ add_custom_target(DroidFont ALL
   DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/DroidSansMono.ttf
 )
 
-target_link_libraries(lightbox ${SDL2_LIBRARIES} SDL2_ttf lb_mesh lb_math)
+target_link_libraries(lightbox ${SDL2_LIBRARIES} SDL2_ttf lb_ui lb_renderers lb_mesh lb_math)
 
 enable_testing()
 find_package(GTest REQUIRED)
