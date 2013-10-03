@@ -1,4 +1,5 @@
 #include "mesh/itf/mesh.h"
+#include "renderers/itf/cpu_triangle_renderer.h"
 #include "renderers/itf/static_noise_renderer.h"
 #include "ui/sdl/itf/sdl_window.h"
 
@@ -42,7 +43,7 @@ int main(int argc, char **argv)
 
     // Create the CPU based triangle renderer.
     lb::ui::SdlWindow window("LightBox", WINDOW_WIDTH, WINDOW_HEIGHT);
-    window.show(lb::StaticNoiseRenderer());
+    window.show(lb::CpuTriangleRenderer());
 
     return 0;
 }
