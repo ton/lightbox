@@ -23,6 +23,7 @@ class Vector
         Vector &operator/=(double f);
 
         Vector operator-() const;
+        Vector operator-(const Vector &v) const;
 
         double length() const;
         double lengthSquared() const;

@@ -103,6 +103,15 @@ Vector Vector::operator-() const
     return Vector(-x, -y, -z);
 }
 
+/// Binary subtraction operator.
+///
+/// \param v the vector to subtract from this vector
+/// \returns the vector pointing from \a v to this vector
+Vector Vector::operator-(const Vector &v) const
+{
+    return Vector(x - v.x, y - v.y, z - v.z);
+}
+
 /// Calculates the length of this vector and returns it.
 ///
 /// \returns the length of this vector
