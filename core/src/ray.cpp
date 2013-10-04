@@ -13,20 +13,26 @@ Ray::Ray(const Vector &origin, const Vector &direction):
 {
 }
 
-bool Ray::intersects(const Triangle &t) const
+bool Ray::intersects(const Triangle &triangle) const
 {
-    Vector T = o - t.v0;
+    Vector T = o - triangle.v0;
+    Vector P = cross(d, triangle.e1);
 
-    Vector P = cross(d, t.e1);
-    Vector Q = cross(T, t.e0);
+    double s = 1.0 / dot(P, triangle.e0);
 
-    // double tt = dot(Q, t.e1) / dot(P, t.e0);
-    double u = dot(P, T) / dot(P, t.e0);
-    if (u < 0.0 || u > 1.0)
+    // Now calculate the barycentric coordinates u and v.
+
+    // In case u does not lie between 0 and 1, we already know the ray does not
+    // intersect the triangle.
+    double u = dot(P, T) * s;
+    if (u < 0 || u > 1)
+    {
         return false;
-    double v = dot(Q, d) / dot(P, t.e0);
+    }
 
-    return (1 - u - v >= 0 && u >= 0 && u <= 1 && v >= 0 && v <= 1);
+    // In case v lies between 0 and 1, we have an intersection.
+    double v = dot(cross(T, triangle.e0), d) * s;
+    return (1 - u - v) >= 0 && v >= 0;
 }
 
 std::ostream &lb::operator<<(std::ostream &out, const Ray &r)
