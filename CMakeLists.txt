@@ -52,5 +52,10 @@ include_directories(${GTEST_INCLUDE_DIR})
 add_executable(run_tests
   tests/main.cpp
 )
-
 target_link_libraries(run_tests gtest gtest_main lb_core lb_math)
+
+# Add benchmark binary.
+add_executable(ray_triangle_benchmark
+  benchmarks/ray_triangle_benchmark.cpp
+)
+target_link_libraries(ray_triangle_benchmark lb_core lb_math)
