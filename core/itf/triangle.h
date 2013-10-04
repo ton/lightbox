@@ -1,12 +1,11 @@
-#ifndef LB_MESH_TRIANGLE_H
-#define LB_MESH_TRIANGLE_H
+#ifndef LB_TRIANGLE_H
+#define LB_TRIANGLE_H
 
 #include "math/itf/vector.h"
 
 #include <ostream>
 
 namespace lb {
-namespace mesh {
 
 /// A vertex is represented by a vector.
 typedef math::Vector Vertex;
@@ -28,6 +27,6 @@ class Triangle
 
 std::ostream &operator<<(std::ostream &out, const Triangle &triangle);
 
-}}
+}
 
 #endif

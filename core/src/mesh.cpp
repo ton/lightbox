@@ -1,12 +1,11 @@
-#include "mesh/itf/mesh.h"
-#include "mesh/itf/triangle.h"
+#include "core/itf/mesh.h"
+#include "core/itf/triangle.h"
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
-namespace lb {
-namespace mesh {
+using namespace lb;
 
 /// Loads an unstructured triangle mesh in OBJ format from the given input
 /// stream \a objFile, and returns it.
@@ -58,5 +57,3 @@ Mesh Mesh::loadFromObj(std::ifstream &objFile)
 
     return result;
 }
-
-}}

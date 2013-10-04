@@ -1,13 +1,12 @@
 #include "renderers/itf/cpu_triangle_renderer.h"
 
 #include "math/itf/vector.h"
-#include "mesh/itf/triangle.h"
+#include "core/itf/triangle.h"
 
 #include <iostream>
 
 using namespace lb;
 using namespace lb::math;
-using namespace lb::mesh;
 
 CpuTriangleRenderer::CpuTriangleRenderer():
     Renderer()

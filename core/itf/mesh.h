@@ -1,5 +1,5 @@
-#ifndef LB_MESH_MESH_H
-#define LB_MESH_MESH_H
+#ifndef LB_MESH_H
+#define LB_MESH_H
 
 #include "math/itf/vector.h"
 
@@ -9,7 +9,6 @@
 #include <vector>
 
 namespace lb {
-namespace mesh {
 
 /// Class representing an unstructured triangle mesh.
 class Mesh
@@ -28,9 +27,9 @@ class Mesh
         const std::vector<Triangle> &triangles() { return _triangles; }
 
     private:
-        std::vector<mesh::Triangle> _triangles;
+        std::vector<Triangle> _triangles;
 };
 
-}}
+}
 
 #endif

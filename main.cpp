@@ -1,4 +1,4 @@
-#include "mesh/itf/mesh.h"
+#include "core/itf/mesh.h"
 #include "renderers/itf/cpu_triangle_renderer.h"
 #include "renderers/itf/static_noise_renderer.h"
 #include "ui/sdl/itf/sdl_window.h"
@@ -39,7 +39,7 @@ int main(int argc, char **argv)
     }
 
     // Load the triangle mesh.
-    lb::mesh::Mesh m = lb::mesh::Mesh::loadFromObj(objMeshFile);
+    lb::Mesh m = lb::Mesh::loadFromObj(objMeshFile);
 
     // Create the CPU based triangle renderer.
     lb::ui::SdlWindow window("LightBox", WINDOW_WIDTH, WINDOW_HEIGHT);

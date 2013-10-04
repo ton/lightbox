@@ -20,7 +20,6 @@ include_directories(.)
 
 add_subdirectory(math)
 add_subdirectory(core)
-add_subdirectory(mesh)
 add_subdirectory(renderers)
 add_subdirectory(ui)
 
@@ -43,7 +42,7 @@ add_custom_target(DroidFont ALL
   DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/DroidSansMono.ttf
 )
 
-target_link_libraries(lightbox ${SDL2_LIBRARIES} SDL2_ttf lb_ui lb_renderers lb_mesh lb_math)
+target_link_libraries(lightbox ${SDL2_LIBRARIES} SDL2_ttf lb_ui lb_core lb_renderers lb_math)
 
 enable_testing()
 find_package(GTest REQUIRED)
@@ -54,4 +53,4 @@ add_executable(run_tests
   tests/main.cpp
 )
 
-target_link_libraries(run_tests gtest gtest_main lb_mesh lb_math)
+target_link_libraries(run_tests gtest gtest_main lb_core lb_math)
