@@ -13,15 +13,21 @@ typedef math::Vector Vertex;
 class Triangle
 {
     public:
-        Triangle(const Vertex &v0, const Vertex &v1, const Vertex &v2);
+        Triangle(const Vertex &a, const Vertex &b, const Vertex &c);
 
         bool operator==(const Triangle &rhs) const;
 
         ///@{
         /// Three vertices uniquely defining the three corners of this triangle.
-        Vertex a;
-        Vertex b;
-        Vertex c;
+        Vertex v0;
+        Vertex v1;
+        Vertex v2;
+        ///@}
+
+        ///@{
+        /// Two edges originating from vertex a to vertex b and c respectively.
+        math::Vector e0;
+        math::Vector e1;
         ///@}
 };
 

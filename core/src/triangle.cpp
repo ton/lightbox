@@ -4,18 +4,22 @@
 
 using namespace lb;
 
-Triangle::Triangle(const Vertex &v0, const Vertex &v1, const Vertex &v2):
-    a(v0), b(v1), c(v2)
+Triangle::Triangle(const Vertex &a, const Vertex &b, const Vertex &c):
+    v0(a),
+    v1(b),
+    v2(c),
+    e0(v1 - v0),
+    e1(v2 - v0)
 {
 }
 
 bool Triangle::operator==(const Triangle &rhs) const
 {
-    return a == rhs.a && b == rhs.b && c == rhs.c;
+    return v0 == rhs.v0 && v1 == rhs.v1 && v2 == rhs.v2;
 }
 
 std::ostream &lb::operator<<(std::ostream &out, const Triangle &triangle)
 {
-    out << "Triangle, a: " << triangle.a << ", b: " << triangle.b << ", c: " << triangle.c << std::endl;
+    out << "Triangle, v0: " << triangle.v0 << ", v1: " << triangle.v1 << ", v2: " << triangle.v2 << std::endl;
     return out;
 }
