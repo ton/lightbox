@@ -25,7 +25,7 @@ class Triangle
         ///@}
 
         ///@{
-        /// Two edges originating from vertex a to vertex b and c respectively.
+        /// Two edges originating from vertex 0 to vertex 1 and 2 respectively.
         math::Vector e0;
         math::Vector e1;
         ///@}
