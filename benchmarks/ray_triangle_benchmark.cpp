@@ -10,29 +10,79 @@
 
 namespace po = boost::program_options;
 
-void runIntersectionTests(unsigned int tests)
+void runIntersectionTests(unsigned int frames, bool (lb::Ray::*intersectionMethod)(const lb::Triangle &) const)
 {
-    // Define a triangle, and intersect it repeatedly, measuring the number of
-    // intersection tests per second.
-    lb::Triangle t(lb::Vertex(0.0, 0.0, 0.0), lb::Vertex(200.0, 0.0, 0.0), lb::Vertex(100.0, 200.0, 0.0));
+    unsigned int width = 640;
+    unsigned int height = 480;
 
-    for (unsigned int j = 0; j < tests; ++j)
+    for (unsigned int frame = 0; frame < frames; ++frame)
     {
-        lb::Ray r(lb::math::Vector(0.0, 0.0, -200 + j), lb::math::Vector(-300, 300, 800));
-        r.intersects(t);
+        lb::Triangle t(lb::Vertex(0.0, 0.0, 0.0), lb::Vertex(200.0, 0.0, 0.0), lb::Vertex(100.0, 200.0, 0.0));
+
+        for (unsigned int j = 0; j < height; ++j)
+        {
+            lb::Ray ray(lb::math::Vector(0.0, 0.0, -800), lb::math::Vector(-0.5 * width, 0.5 * height - j, 800));
+
+            for (unsigned int i = 0; i < width; ++i)
+            {
+                ray.d.x += 1;
+
+                (ray.*intersectionMethod)(t);
+            }
+        }
     }
+}
+
+enum IntersectionAlgorithm
+{
+    IA_MOLLER_TRUMBORE,
+    IA_GEOMETRICALLY,
+};
+
+std::istream &operator>>(std::istream &in, IntersectionAlgorithm &ia)
+{
+    std::string token;
+    in >> token;
+
+    if (token == "geometrically")
+    {
+        ia = IA_GEOMETRICALLY;
+    }
+    else
+    {
+        ia = IA_MOLLER_TRUMBORE;
+    }
+
+    return in;
+}
+
+std::ostream &operator<<(std::ostream &out, const IntersectionAlgorithm &ia)
+{
+    switch (ia)
+    {
+        case IA_MOLLER_TRUMBORE:
+            out << "moller_trumbore";
+            break;
+        case IA_GEOMETRICALLY:
+            out << "geometrically";
+            break;
+    }
+
+    return out;
 }
 
 int main(int argc, char **argv)
 {
-    unsigned int intersectionTests = 1e07;
+    unsigned int frames = 120;
     unsigned int iterations = 10;
+    IntersectionAlgorithm algorithm = IA_MOLLER_TRUMBORE;
 
     po::options_description description("Available options");
     description.add_options()
         ("help,h", "Shows this help message")
         ("iterations,i", po::value<unsigned int>(&iterations), "Number of times to run the intersection tests")
-        ("tests,t", po::value<unsigned int>(&intersectionTests), "Number of intersection tests");
+        ("frames,f", po::value<unsigned int>(&frames), "Number of frames to render")
+        ("type", po::value<IntersectionAlgorithm>(&algorithm), "Type of intersection test ['moller_trumbore', 'geometrically']");
 
     po::variables_map vm;
 
@@ -53,11 +103,23 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    std::cout << "Starting benchmark with " << intersectionTests << " intersection tests for " << iterations << " iterations." << std::endl << std::endl;
+    std::cout << "Starting benchmark rendering " << frames << " frames for " << iterations << " iterations, using '" << algorithm << "'." << std::endl << std::endl;
+
+    // Depending on the selected algorithm, use the correct intersection
+    // algorithm.
+    bool (lb::Ray::*intersectionMethod)(const lb::Triangle &) const = &lb::Ray::intersectsMollerTrumbore;
+    switch (algorithm)
+    {
+        case IA_GEOMETRICALLY:
+            intersectionMethod = &lb::Ray::intersectsGeometrically;
+            break;
+        default:
+            break;
+    }
 
     // Run the intersection test once, to prevent cluttered overall benchmark
     // results due to cache warmup effects.
-    runIntersectionTests(intersectionTests);
+    runIntersectionTests(frames, intersectionMethod);
 
     // Rasterize the triangle, multiple times.
     double totalSeconds = 0;
@@ -65,19 +127,19 @@ int main(int argc, char **argv)
     {
         std::chrono::time_point<std::chrono::steady_clock> start = std::chrono::steady_clock::now();
 
-        runIntersectionTests(intersectionTests);
+        runIntersectionTests(frames, intersectionMethod);
 
         double seconds = std::chrono::duration<double>(std::chrono::steady_clock::now() - start).count();
-        long intersectionsPerSecond = intersectionTests / seconds;
+        long intersectionsPerSecond = frames / seconds;
 
         std::cout << std::setprecision(4) << std::fixed;
-        std::cout << "Tested " << intersectionTests << " rays in " << seconds << "s, " << intersectionsPerSecond << " tests per second." << std::endl;
+        std::cout << "Tested " << frames << " frames in " << seconds << "s, " << intersectionsPerSecond << " FPS." << std::endl;
 
         totalSeconds += seconds;
     }
 
-    std::cout << std::endl << "Overall tested " << intersectionTests * iterations << " rays in " << totalSeconds << "s, " <<
-        (unsigned int)((intersectionTests * iterations) / totalSeconds) << " tests per second." << std::endl;
+    std::cout << std::endl << "Overall tested " << frames * iterations << " rays in " << totalSeconds << "s, " <<
+        (unsigned int)((frames * iterations) / totalSeconds) << " FPS." << std::endl;
 
     return 0;
 }
