@@ -29,7 +29,7 @@ void CpuTriangleRenderer::render(unsigned int width, unsigned int height, uint32
         {
             ray.d.x += 1;
 
-            if (ray.intersects(t))
+            if (ray.intersectsMollerTrumbore(t))
             {
                 *pixel++ = (0xff << 16) + (0xff << 8) + 0xff;
             }

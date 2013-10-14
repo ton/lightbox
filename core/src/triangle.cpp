@@ -9,7 +9,11 @@ Triangle::Triangle(const Vertex &a, const Vertex &b, const Vertex &c):
     v1(b),
     v2(c),
     e0(v1 - v0),
-    e1(v2 - v0)
+    e1(v2 - v0),
+    v1v2(v2 - v1),
+    v2v0(v0 - v2),
+    n(cross(e0, e1)),
+    D(dot(n, v0))
 {
 }
 

@@ -24,11 +24,22 @@ class Triangle
         Vertex v2;
         ///@}
 
-        ///@{
-        /// Two edges originating from vertex 0 to vertex 1 and 2 respectively.
+        /// The edge from vertex 0 to vertex 1.
         math::Vector e0;
+        /// The edge from vertex 0 to vertex 2.
         math::Vector e1;
-        ///@}
+
+        /// The edge from vertex 1 to vertex 2.
+        math::Vector v1v2;
+        /// The edge from vertex 2 to vertex 0.
+        math::Vector v2v0;
+
+        /// Normal of the triangle.
+        math::Vector n;
+
+        /// Constant D in the plane equation of this triangle.
+        double D;
+
 };
 
 std::ostream &operator<<(std::ostream &out, const Triangle &triangle);
