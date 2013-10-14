@@ -58,4 +58,4 @@ target_link_libraries(run_tests gtest gtest_main lb_core lb_math)
 add_executable(ray_triangle_benchmark
   benchmarks/ray_triangle_benchmark.cpp
 )
-target_link_libraries(ray_triangle_benchmark lb_core lb_math)
+target_link_libraries(ray_triangle_benchmark lb_core lb_math boost_program_options)

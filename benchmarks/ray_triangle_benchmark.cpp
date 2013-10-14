@@ -2,10 +2,13 @@
 #include "core/itf/triangle.h"
 
 #include <boost/lexical_cast.hpp>
+#include <boost/program_options.hpp>
 
 #include <iomanip>
 #include <iostream>
 #include <chrono>
+
+namespace po = boost::program_options;
 
 void runIntersectionTests(unsigned int tests)
 {
@@ -25,28 +28,29 @@ int main(int argc, char **argv)
     unsigned int intersectionTests = 1e07;
     unsigned int iterations = 10;
 
-    // Parse command line arguments.
-    if (argc > 1)
+    po::options_description description("Available options");
+    description.add_options()
+        ("help,h", "Shows this help message")
+        ("iterations,i", po::value<unsigned int>(&iterations), "Number of times to run the intersection tests")
+        ("tests,t", po::value<unsigned int>(&intersectionTests), "Number of intersection tests");
+
+    po::variables_map vm;
+
+    try
     {
-        unsigned int arg = 1;
-        while (arg + 1 < argc)
-        {
-            if (std::string(argv[arg]) == "-n")
-            {
-                intersectionTests = boost::lexical_cast<unsigned int>(argv[arg + 1]);
-            }
-            else if (std::string(argv[arg]) == "-i")
-            {
-                iterations = boost::lexical_cast<unsigned int>(argv[arg + 1]);
-            }
+        po::store(po::parse_command_line(argc, argv, description), vm);
+        po::notify(vm);
 
-            arg += 2;
-        }
-
-        if (arg < argc)
+        if (vm.count("help"))
         {
-            std::cerr << "Missing argument for: " << argv[arg] << std::endl;
+            std::cout << "Ray/triangle intersection benchmark application." << std::endl << std::endl << description << std::endl;
+            return 1;
         }
+    }
+    catch (const po::error &e)
+    {
+        std::cerr << "Error parsing command line: " << e.what() << "." << std::endl;
+        return 1;
     }
 
     std::cout << "Starting benchmark with " << intersectionTests << " intersection tests for " << iterations << " iterations." << std::endl << std::endl;
