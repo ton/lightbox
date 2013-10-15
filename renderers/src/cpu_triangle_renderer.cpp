@@ -23,7 +23,7 @@ void CpuTriangleRenderer::render(unsigned int width, unsigned int height, uint32
     uint32_t *pixel = &(pixels[0]);
     for (unsigned int j = 0; j < height; ++j)
     {
-        lb::Ray ray(Vector(0.0, 0.0, -800), Vector(-0.5 * width, 0.5 * height - j, 800));
+        lb::Ray ray(Vector(0.0, 0.0, 800), Vector(-0.5 * width, 0.5 * height - j, -800));
 
         for (unsigned int i = 0; i < width; ++i)
         {
