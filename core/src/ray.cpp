@@ -1,6 +1,7 @@
 #include "core/itf/ray.h"
 
 #include "core/itf/triangle.h"
+#include "math/itf/constants.h"
 
 #include <iostream>
 
@@ -48,21 +49,27 @@ bool Ray::intersectsMollerTrumbore(const Triangle &triangle) const
     Vector T = o - triangle.v0;
     Vector P = cross(d, triangle.e1);
 
-    double s = 1.0 / dot(P, triangle.e0);
+    double determinant = dot(P, triangle.e0);
+    if (determinant < EPSILON)
+    {
+        return false;
+    }
 
     // Now calculate the barycentric coordinates u and v.
-
-    // In case u does not lie between 0 and 1, we already know the ray does not
-    // intersect the triangle.
-    double u = dot(P, T) * s;
-    if (u < 0 || u > 1)
+    double u = dot(P, T);
+    if (u < EPSILON || u > determinant)
     {
         return false;
     }
 
     // In case v lies between 0 and 1, we have an intersection.
-    double v = dot(cross(T, triangle.e0), d) * s;
-    return (1 - u - v) >= 0 && v >= 0;
+    double v = dot(cross(T, triangle.e0), d);
+    if (v < EPSILON || v > determinant)
+    {
+        return false;
+    }
+
+    return v >= EPSILON && (determinant - u - v) >= EPSILON;
 }
 
 std::ostream &lb::operator<<(std::ostream &out, const Ray &r)
