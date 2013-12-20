@@ -10,12 +10,11 @@
 
 namespace po = boost::program_options;
 
-void runIntersectionTests(unsigned int width, unsigned int height, unsigned int frames, bool (lb::Ray::*intersectionMethod)(const lb::Triangle &) const)
+void runIntersectionTests(unsigned int width, unsigned int height, unsigned int frames, const lb::Triangle &t,
+        bool (lb::Ray::*intersectionMethod)(const lb::Triangle &) const)
 {
     for (unsigned int frame = 0; frame < frames; ++frame)
     {
-        lb::Triangle t(lb::Vertex(0.0, 0.0, 0.0), lb::Vertex(200.0, 0.0, 0.0), lb::Vertex(100.0, 200.0, 0.0));
-
         for (unsigned int j = 0; j < height; ++j)
         {
             lb::Ray ray(lb::math::Vector(0.0, 0.0, -800), lb::math::Vector(-0.5 * width, 0.5 * height - j, 800));
@@ -116,7 +115,13 @@ int main(int argc, char **argv)
     // results due to cache warmup effects.
     const unsigned int width = 640;
     const unsigned int height = 480;
-    runIntersectionTests(width, height, 1, intersectionMethod);
+
+    // For now, just intersect against a single triangle.
+    lb::Triangle triangle(lb::Vertex(0.0, 0.0, 0.0), lb::Vertex(200.0, 0.0, 0.0), lb::Vertex(100.0, 200.0, 0.0));
+
+    // Run the intersection test once for a single frame, to prevent cluttered
+    // overall benchmark results due to cache warmup effects.
+    runIntersectionTests(width, height, 1, triangle, intersectionMethod);
 
     // Total number of intersections per iteration to benchmark.
     const unsigned int intersections = width * height * frames;
@@ -130,7 +135,7 @@ int main(int argc, char **argv)
     {
         std::chrono::time_point<std::chrono::steady_clock> start = std::chrono::steady_clock::now();
 
-        runIntersectionTests(width, height, frames, intersectionMethod);
+        runIntersectionTests(width, height, frames, triangle, intersectionMethod);
 
         double seconds = std::chrono::duration<double>(std::chrono::steady_clock::now() - start).count();
         long intersectionsPerSecond = (width * height * frames) / seconds;
