@@ -52,15 +52,23 @@ TEST_P(TriangleIntersectionTest, TestIntersectionVertex)
 }
 
 /// Tests that a ray that originates on the triangle intersects it.
-TEST_P(TriangleIntersectionTest, TestIntersectionOriginOnTriangle)
+TEST_P(TriangleIntersectionTest, TestRayOriginOnTriangle)
 {
-    Ray ray(Vertex(0.2, 0.0, 0.0), Vector(0.0, 0.0, 1.0));
+    Ray ray(Vertex(0.2, 0.0, 0.0), Vector(0.0, 0.0, -1.0));
     EXPECT_TRUE((ray.*GetParam())(triangle_));
 }
 
 /// Tests that a ray that runs through the triangle does not intersect it.
-TEST_P(TriangleIntersectionTest, TestIntersectionParallel)
+TEST_P(TriangleIntersectionTest, TestParallelRay)
 {
     Ray ray(Vertex(0.5, 0.0, 0.0), Vector(0, 1, 0.25));
+    EXPECT_FALSE((ray.*GetParam())(triangle_));
+}
+
+/// Tests that intersecting a backfacing triangle does not result in an
+/// intersection.
+TEST_P(TriangleIntersectionTest, TestCulling)
+{
+    Ray ray(Vertex(0.5, 0.0, -1.0), Vector(0.1, 0.1, 1.0));
     EXPECT_FALSE((ray.*GetParam())(triangle_));
 }
