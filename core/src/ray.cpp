@@ -78,3 +78,19 @@ std::ostream &lb::operator<<(std::ostream &out, const Ray &r)
     out << "Ray, origin: " << r.o << ", direction: " << r.d << std::endl;
     return out;
 }
+
+std::ostream &lb::operator<<(std::ostream &out, const IntersectionMethod &intersectionMethod)
+{
+    if (intersectionMethod == &lb::Ray::intersectsMollerTrumbore)
+    {
+        out << "Moller-Trumbore";
+    }
+    else if (intersectionMethod == &lb::Ray::intersectsGeometrically)
+    {
+        out << "Geometrically";
+    }
+    else
+    {
+        out << "Unknown";
+    }
+}

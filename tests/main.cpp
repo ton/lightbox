@@ -1,4 +1,5 @@
 #include "core/test/mesh_test.h"
+#include "core/test/ray_test.h"
 
 #include <gtest/gtest.h>
 
