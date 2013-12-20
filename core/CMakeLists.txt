@@ -4,3 +4,5 @@ set(SOURCES
   src/triangle.cpp)
 
 add_library(lb_core SHARED ${SOURCES})
+
+target_link_libraries(lb_core profiler)

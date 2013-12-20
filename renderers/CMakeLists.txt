@@ -4,3 +4,5 @@ set(SOURCES
 )
 
 add_library(lb_renderers SHARED ${SOURCES})
+
+target_link_libraries(lb_renderers profiler)
