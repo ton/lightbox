@@ -46,7 +46,6 @@ bool Ray::intersectsGeometrically(const Triangle &triangle) const
 
 bool Ray::intersectsMollerTrumbore(const Triangle &triangle) const
 {
-    Vector T = o - triangle.v0;
     Vector P = cross(d, triangle.e1);
 
     double determinant = dot(P, triangle.e0);
@@ -54,6 +53,8 @@ bool Ray::intersectsMollerTrumbore(const Triangle &triangle) const
     {
         return false;
     }
+
+    Vector T = o - triangle.v0;
 
     // Now calculate the barycentric coordinates u and v.
     double u = dot(P, T);
