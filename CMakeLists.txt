@@ -8,6 +8,10 @@ include(FindPkgConfig)
 pkg_search_module(SDL2 REQUIRED sdl2)
 include_directories(${SDL2_INCLUDE_DIRS})
 
+# Optimize for default builds, optimize aggressively for release builds.
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+
 # Define the library path for the output.
 set(TARGET_BINARY_PATH "${PROJECT_SOURCE_DIR}/build/bin/")
 set(TARGET_LIBRARY_PATH "${PROJECT_SOURCE_DIR}/build/lib/")
