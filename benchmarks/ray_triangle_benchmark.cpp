@@ -111,8 +111,8 @@ int main(int argc, char **argv)
             break;
     }
 
-    // Run the intersection test once, to prevent cluttered overall benchmark
-    // results due to cache warmup effects.
+    // Determine the width and height in pixels of the frame to render
+    // repeatedly.
     const unsigned int width = 640;
     const unsigned int height = 480;
 
@@ -126,7 +126,7 @@ int main(int argc, char **argv)
     // Total number of intersections per iteration to benchmark.
     const unsigned int intersections = width * height * frames;
 
-    std::cout << "Starting benchmark performing " << intersections << " ray/triangle intersections for " << iterations << " iterations, using '" <<
+    std::cout << "Starting benchmark performing " << intersections << " ray/triangle intersections for " << iterations << " iteration(s), using '" <<
         algorithm << "'..." << std::endl << std::endl;
 
     // Rasterize the triangle, multiple times.
