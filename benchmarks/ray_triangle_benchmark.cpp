@@ -101,13 +101,14 @@ int main(int argc, char **argv)
 
     // Depending on the selected algorithm, use the correct intersection
     // algorithm.
-    bool (lb::Ray::*intersectionMethod)(const lb::Triangle &) const = &lb::Ray::intersectsMollerTrumbore;
+    bool (lb::Ray::*intersectionMethod)(const lb::Triangle &) const;
     switch (algorithm)
     {
+        case IA_MOLLER_TRUMBORE:
+            intersectionMethod = &lb::Ray::intersectsMollerTrumbore;
+            break;
         case IA_GEOMETRICALLY:
             intersectionMethod = &lb::Ray::intersectsGeometrically;
-            break;
-        default:
             break;
     }
 
