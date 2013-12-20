@@ -95,6 +95,14 @@ bool Ray::intersectsDidierBadouel(const Triangle &triangle) const
     return alpha >= 0.0 && alpha + beta <= 1.0;
 }
 
+/// Implements a straight up geometrical approach to solve the ray/triangle
+/// intersection problem. The intersection point P with the plane the triangle
+/// lies in is first determined. Subsequently, the algorithm checks whether P
+/// lies within the triangle boundaries.
+///
+/// \param triangle the triangle to check for an intersection with this ray
+/// \return \c true in case this ray intersects the given \a triangle, \c false
+///     otherwise
 bool Ray::intersectsGeometrically(const Triangle &triangle) const
 {
     double k = dot(triangle.n, d);
@@ -125,6 +133,12 @@ bool Ray::intersectsGeometrically(const Triangle &triangle) const
             dot(triangle.n, cross(triangle.v2v0, P - triangle.v2)) >= 0);
 }
 
+/// Implementation of the Moller/Trumbore algorithm, described in their paper
+/// 'Fast Minimum-Storage Ray-Triangle Intersection', published in 1997.
+///
+/// \param triangle the triangle to check for an intersection with this ray
+/// \return \c true in case this ray intersects the given \a triangle, \c false
+///     otherwise
 bool Ray::intersectsMollerTrumbore(const Triangle &triangle) const
 {
     Vector P = cross(d, triangle.e1);
