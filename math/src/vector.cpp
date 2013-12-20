@@ -5,27 +5,6 @@
 
 using namespace lb::math;
 
-/// Constructor.
-///
-/// \param ax x component of the vector
-/// \param ay y component of the vector
-/// \param az z component of the vector
-Vector::Vector(double ax, double ay, double az):
-    x(ax),
-    y(ay),
-    z(az)
-{
-}
-
-/// Adds the vector \a v to this vector and returns the result vector.
-///
-/// \param v vector to add to this vector
-/// \returns the vector that results from adding v to this vector
-Vector Vector::operator+(const Vector &v) const
-{
-    return Vector(x + v.x, y + v.y, z + v.z);
-}
-
 /// Adds the vector \a v to this vector.
 ///
 /// \param v vector to add to this vector
@@ -47,15 +26,6 @@ Vector &Vector::operator+=(const Vector &v)
 bool Vector::operator==(const Vector &v) const
 {
     return x == v.x && y == v.y && z == v.z;
-}
-
-/// Scales this vector by a factor \a f and returns the result vector.
-///
-/// \param f factor to scale this vector with
-/// \returns the vector that results from scaling this vector with \a f
-Vector Vector::operator*(double f) const
-{
-    return Vector(x * f, y * f, z * f);
 }
 
 /// Scales this vector by a factor \a f and returns a reference to itself.
@@ -95,23 +65,6 @@ Vector &Vector::operator/=(double f)
     return *this;
 }
 
-/// Unary negation operator.
-///
-/// \returns a vector that points in the opposite direction of this vector
-Vector Vector::operator-() const
-{
-    return Vector(-x, -y, -z);
-}
-
-/// Binary subtraction operator.
-///
-/// \param v the vector to subtract from this vector
-/// \returns the vector pointing from \a v to this vector
-Vector Vector::operator-(const Vector &v) const
-{
-    return Vector(x - v.x, y - v.y, z - v.z);
-}
-
 /// Calculates the length of this vector and returns it.
 ///
 /// \returns the length of this vector
@@ -136,16 +89,6 @@ Vector Vector::normalize() const
     return *this / length();
 }
 
-/// Global operator overload for scaling a vector \a v by a factor \a f.
-///
-/// \param f factor to scale \a v with
-/// \param v vector to scale
-/// \return \a v scaled with factor \a f
-Vector lb::math::operator*(double f, const Vector &v)
-{
-    return v * f;
-}
-
 /// Streams a textual representation of the vector \a v to \a out.
 ///
 /// \param out output stream to send the textual representation of \a v to
@@ -153,33 +96,6 @@ Vector lb::math::operator*(double f, const Vector &v)
 std::ostream &lb::math::operator<<(std::ostream &out, const Vector &v)
 {
     out << "(" << v.x << ", " << v.y << ", " << v.z << ")";
-}
-
-/// Calculates the cross product between the vectors \a v and \a w and returns
-/// it.
-///
-/// The cross product is a vector perpendicular to both vectors \a v and \a w.
-/// The direction of the cross product determines the handedness of the
-/// coordinate system. Thus, the handedness of the coordinate system determines
-/// the direction of the cross product. This implementation uses the definition
-/// of a cross product in a left-handed coordinate system.
-///
-/// \param v left-hand side argument of the cross product
-/// \param w right-hand side argument of the cross product
-/// \returns the cross product between the vectors \a v and \a w
-Vector cross(const Vector &v, const Vector &w)
-{
-    return Vector(v.y * w.z - v.z * w.y, v.z * w.x - v.x * w.z, v.x * w.y - v.y * w.x);
-}
-
-/// Returns the dot product of the two vectors \a v and \a w.
-///
-/// \param v left-hand side argument for the dot product
-/// \param w right-hand side argument for the dot product
-/// \returns the dot product of the two vectors \a v and \a w
-double dot(const Vector &v, const Vector &w)
-{
-    return v.x * w.x + v.y * w.y + v.z * w.z;
 }
 
 /// Returns the absolute value of the dot product of the two vectors \a v and \a

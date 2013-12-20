@@ -9,21 +9,44 @@ namespace math {
 class Vector
 {
     public:
-        Vector(double ax = 0, double ay = 0, double az = 0);
+        /// Constructor.
+        ///
+        /// \param ax x component of the vector
+        /// \param ay y component of the vector
+        /// \param az z component of the vector
+        Vector(double ax = 0.0, double ay = 0.0, double az = 0.0): x(ax), y(ay), z(az) { }
 
-        Vector operator+(Vector const &v) const;
+        /// Adds the vector \a v to this vector and returns the result vector.
+        ///
+        /// \param v vector to add to this vector
+        /// \returns the vector that results from adding v to this vector
+        Vector operator+(const Vector &v) const
+        {
+            return Vector(x + v.x, y + v.y, z + v.z);
+        }
         Vector &operator+=(Vector const &v);
 
         bool operator==(const Vector &v) const;
 
-        Vector operator*(double f) const;
+        /// Scales this vector by a factor \a f and returns the result vector.
+        ///
+        /// \param f factor to scale this vector with
+        /// \returns the vector that results from scaling this vector with \a f
+        Vector operator*(double f) const { return Vector(x * f, y * f, z * f); }
         Vector &operator*=(double f);
 
         Vector operator/(double f) const;
         Vector &operator/=(double f);
 
-        Vector operator-() const;
-        Vector operator-(const Vector &v) const;
+        /// Unary negation operator.
+        ///
+        /// \returns a vector that points in the opposite direction of this vector
+        Vector operator-() const { return Vector(-x, -y, -z); }
+        /// Binary subtraction operator.
+        ///
+        /// \param v the vector to subtract from this vector
+        /// \returns the vector pointing from \a v to this vector
+        Vector operator-(const Vector &v) const { return Vector(x - v.x, y - v.y, z - v.z); }
 
         double length() const;
         double lengthSquared() const;
@@ -40,13 +63,47 @@ class Vector
         double z;
 };
 
-Vector operator*(double f, const Vector &v);
+/// Global operator overload for scaling a vector \a v by a factor \a f.
+///
+/// \param f factor to scale \a v with
+/// \param v vector to scale
+/// \return \a v scaled with factor \a f
+inline Vector operator*(double f, const Vector &v)
+{
+    return v * f;
+}
+
 std::ostream &operator<<(std::ostream &out, const Vector &v);
 
 }}
 
-lb::math::Vector cross(const lb::math::Vector &v, const lb::math::Vector &w);
-double dot(const lb::math::Vector &v, const lb::math::Vector &w);
 double absDot(const lb::math::Vector &v, const lb::math::Vector &w);
+
+/// Calculates the cross product between the vectors \a v and \a w and returns
+/// it.
+///
+/// The cross product is a vector perpendicular to both vectors \a v and \a w.
+/// The direction of the cross product determines the handedness of the
+/// coordinate system. Thus, the handedness of the coordinate system determines
+/// the direction of the cross product. This implementation uses the definition
+/// of a cross product in a left-handed coordinate system.
+///
+/// \param v left-hand side argument of the cross product
+/// \param w right-hand side argument of the cross product
+/// \returns the cross product between the vectors \a v and \a w
+inline lb::math::Vector cross(const lb::math::Vector &v, const lb::math::Vector &w)
+{
+    return lb::math::Vector(v.y * w.z - v.z * w.y, v.z * w.x - v.x * w.z, v.x * w.y - v.y * w.x);
+}
+
+/// Returns the dot product of the two vectors \a v and \a w.
+///
+/// \param v left-hand side argument for the dot product
+/// \param w right-hand side argument for the dot product
+/// \returns the dot product of the two vectors \a v and \a w
+inline double dot(const lb::math::Vector &v, const lb::math::Vector &w)
+{
+    return v.x * w.x + v.y * w.y + v.z * w.z;
+}
 
 #endif
