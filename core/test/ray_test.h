@@ -20,6 +20,7 @@ class TriangleIntersectionTest: public ::testing::TestWithParam<IntersectionMeth
 };
 
 INSTANTIATE_TEST_CASE_P(RayTest, TriangleIntersectionTest, ::testing::Values(
+            &lb::Ray::intersectsDidierBadouel,
             &lb::Ray::intersectsGeometrically,
             &lb::Ray::intersectsMollerTrumbore));
 

@@ -31,6 +31,7 @@ void runIntersectionTests(unsigned int width, unsigned int height, unsigned int 
 
 enum IntersectionAlgorithm
 {
+    IA_DIDIER_BADOUEL,
     IA_MOLLER_TRUMBORE,
     IA_GEOMETRICALLY,
 };
@@ -40,11 +41,15 @@ std::istream &operator>>(std::istream &in, IntersectionAlgorithm &ia)
     std::string token;
     in >> token;
 
-    if (token == "geometrically")
+    if (token == "didier_badouel")
+    {
+        ia = IA_DIDIER_BADOUEL;
+    }
+    else if (token == "geometrically")
     {
         ia = IA_GEOMETRICALLY;
     }
-    else
+    else if (token == "moller_trumbore")
     {
         ia = IA_MOLLER_TRUMBORE;
     }
@@ -56,6 +61,9 @@ std::ostream &operator<<(std::ostream &out, const IntersectionAlgorithm &ia)
 {
     switch (ia)
     {
+        case IA_DIDIER_BADOUEL:
+            out << "didier_badouel";
+            break;
         case IA_MOLLER_TRUMBORE:
             out << "moller_trumbore";
             break;
@@ -78,7 +86,7 @@ int main(int argc, char **argv)
         ("help,h", "Shows this help message")
         ("iterations,i", po::value<unsigned int>(&iterations), "Number of times to run the intersection tests")
         ("frames,f", po::value<unsigned int>(&frames), "Number of frames to render")
-        ("type", po::value<IntersectionAlgorithm>(&algorithm), "Type of intersection test ['moller_trumbore', 'geometrically']");
+        ("type", po::value<IntersectionAlgorithm>(&algorithm), "Type of intersection test ['didier_badouel', 'moller_trumbore', 'geometrically']");
 
     po::variables_map vm;
 
@@ -104,6 +112,9 @@ int main(int argc, char **argv)
     bool (lb::Ray::*intersectionMethod)(const lb::Triangle &) const;
     switch (algorithm)
     {
+        case IA_DIDIER_BADOUEL:
+            intersectionMethod = &lb::Ray::intersectsDidierBadouel;
+            break;
         case IA_MOLLER_TRUMBORE:
             intersectionMethod = &lb::Ray::intersectsMollerTrumbore;
             break;

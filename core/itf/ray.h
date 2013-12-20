@@ -14,6 +14,7 @@ class Ray
     public:
         Ray(const math::Vector &o, const math::Vector &d);
 
+        bool intersectsDidierBadouel(const Triangle &t) const;
         bool intersectsGeometrically(const Triangle &t) const;
         bool intersectsMollerTrumbore(const Triangle &t) const;
 
