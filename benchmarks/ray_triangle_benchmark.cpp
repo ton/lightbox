@@ -10,11 +10,8 @@
 
 namespace po = boost::program_options;
 
-void runIntersectionTests(unsigned int frames, bool (lb::Ray::*intersectionMethod)(const lb::Triangle &) const)
+void runIntersectionTests(unsigned int width, unsigned int height, unsigned int frames, bool (lb::Ray::*intersectionMethod)(const lb::Triangle &) const)
 {
-    unsigned int width = 640;
-    unsigned int height = 480;
-
     for (unsigned int frame = 0; frame < frames; ++frame)
     {
         lb::Triangle t(lb::Vertex(0.0, 0.0, 0.0), lb::Vertex(200.0, 0.0, 0.0), lb::Vertex(100.0, 200.0, 0.0));
@@ -103,8 +100,6 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    std::cout << "Starting benchmark rendering " << frames << " frames for " << iterations << " iterations, using '" << algorithm << "'." << std::endl << std::endl;
-
     // Depending on the selected algorithm, use the correct intersection
     // algorithm.
     bool (lb::Ray::*intersectionMethod)(const lb::Triangle &) const = &lb::Ray::intersectsMollerTrumbore;
@@ -119,7 +114,15 @@ int main(int argc, char **argv)
 
     // Run the intersection test once, to prevent cluttered overall benchmark
     // results due to cache warmup effects.
-    runIntersectionTests(frames, intersectionMethod);
+    const unsigned int width = 640;
+    const unsigned int height = 480;
+    runIntersectionTests(width, height, 1, intersectionMethod);
+
+    // Total number of intersections per iteration to benchmark.
+    const unsigned int intersections = width * height * frames;
+
+    std::cout << "Starting benchmark performing " << intersections << " ray/triangle intersections for " << iterations << " iterations, using '" <<
+        algorithm << "'..." << std::endl << std::endl;
 
     // Rasterize the triangle, multiple times.
     double totalSeconds = 0;
@@ -127,19 +130,19 @@ int main(int argc, char **argv)
     {
         std::chrono::time_point<std::chrono::steady_clock> start = std::chrono::steady_clock::now();
 
-        runIntersectionTests(frames, intersectionMethod);
+        runIntersectionTests(width, height, frames, intersectionMethod);
 
         double seconds = std::chrono::duration<double>(std::chrono::steady_clock::now() - start).count();
-        long intersectionsPerSecond = frames / seconds;
+        long intersectionsPerSecond = (width * height * frames) / seconds;
 
         std::cout << std::setprecision(4) << std::fixed;
-        std::cout << "Tested " << frames << " frames in " << seconds << "s, " << intersectionsPerSecond << " FPS." << std::endl;
+        std::cout << "Finished in " << seconds << "s, " << intersectionsPerSecond << " intersections per second." << std::endl;
 
         totalSeconds += seconds;
     }
 
-    std::cout << std::endl << "Overall tested " << frames * iterations << " rays in " << totalSeconds << "s, " <<
-        (unsigned int)((frames * iterations) / totalSeconds) << " FPS." << std::endl;
+    std::cout << std::endl << "Overall tested " << (intersections * iterations) << " rays in " << totalSeconds << "s, " <<
+        (unsigned int)((intersections * iterations) / totalSeconds) << " intersections per second." << std::endl;
 
     return 0;
 }
