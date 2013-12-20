@@ -17,7 +17,7 @@ void runIntersectionTests(unsigned int width, unsigned int height, unsigned int 
     {
         for (unsigned int j = 0; j < height; ++j)
         {
-            lb::Ray ray(lb::math::Vector(0.0, 0.0, -800), lb::math::Vector(-0.5 * width, 0.5 * height - j, 800));
+            lb::Ray ray(lb::Vertex(0.0, 0.0, 800), lb::math::Vector(-0.5 * width, 0.5 * height - j, -800));
 
             for (unsigned int i = 0; i < width; ++i)
             {
