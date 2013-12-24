@@ -1,3 +1,5 @@
+#include "common/test/exception_test.h"
+
 #include "core/test/mesh_test.h"
 #include "core/test/ray_test.h"
 
