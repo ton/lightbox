@@ -1,4 +1,5 @@
 set(SOURCES
+  src/obj_reader.cpp
   src/mesh.cpp
   src/ray.cpp
   src/triangle.cpp)
