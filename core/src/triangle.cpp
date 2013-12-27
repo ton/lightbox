@@ -37,6 +37,11 @@ bool Triangle::operator==(const Triangle &rhs) const
     return v0 == rhs.v0 && v1 == rhs.v1 && v2 == rhs.v2;
 }
 
+/// Prints a textual representation of the given \a triangle to \a out.
+///
+/// \param out the output stream
+/// \param triangle the triangle to print to \a out
+/// \return the output stream
 std::ostream &lb::operator<<(std::ostream &out, const Triangle &triangle)
 {
     out << "Triangle, v0: " << triangle.v0 << ", v1: " << triangle.v1 << ", v2: " << triangle.v2 << std::endl;
