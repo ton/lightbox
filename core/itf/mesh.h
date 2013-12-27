@@ -19,12 +19,12 @@ class Mesh
         /// Adds triangle \a t to this mesh.
         ///
         /// \param t triange to add to this mesh
-        void addTriangle(const Triangle &t) { _triangles.push_back(t); }
+        void addTriangle(const Triangle &t) { triangles_.push_back(t); }
 
         /// Returns all triangles in this mesh.
         ///
         /// \return all trianges in this mesh
-        const std::vector<Triangle> &triangles() { return _triangles; }
+        const std::vector<Triangle> &triangles() { return triangles_; }
 
         /// Returns the bounds of this mesh in world coordinates.
         ///
@@ -32,7 +32,7 @@ class Mesh
         BoundingBox bounds() const;
 
     private:
-        std::vector<Triangle> _triangles;
+        std::vector<Triangle> triangles_;
 };
 
 }
