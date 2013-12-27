@@ -1,6 +1,7 @@
 #ifndef LB_TRIANGLE_H
 #define LB_TRIANGLE_H
 
+#include "core/itf/bounding_box.h"
 #include "math/itf/vector.h"
 
 #include <ostream>
@@ -16,6 +17,8 @@ class Triangle
         Triangle(const Vertex &a, const Vertex &b, const Vertex &c);
 
         bool operator==(const Triangle &rhs) const;
+
+        BoundingBox bounds() const;
 
         ///@{
         /// Three vertices uniquely defining the three corners of this triangle.

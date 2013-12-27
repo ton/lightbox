@@ -26,6 +26,11 @@ class Mesh
         /// \return all trianges in this mesh
         const std::vector<Triangle> &triangles() { return _triangles; }
 
+        /// Returns the bounds of this mesh in world coordinates.
+        ///
+        /// \returns the bounds of this mesh in world coordinates
+        BoundingBox bounds() const;
+
     private:
         std::vector<Triangle> _triangles;
 };

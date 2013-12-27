@@ -1,5 +1,6 @@
 #include "common/test/exception_test.h"
 
+#include "core/test/bounding_box_test.h"
 #include "core/test/mesh_test.h"
 #include "core/test/obj_reader_test.h"
 #include "core/test/ray_test.h"

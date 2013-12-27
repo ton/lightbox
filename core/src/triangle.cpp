@@ -17,6 +17,18 @@ Triangle::Triangle(const Vertex &a, const Vertex &b, const Vertex &c):
 {
 }
 
+/// Returns the bounding box of this triangle.
+///
+/// \returns the bounding box of this triangle
+BoundingBox Triangle::bounds() const
+{
+    BoundingBox result;
+    result.extend(v0);
+    result.extend(v1);
+    result.extend(v2);
+    return result;
+}
+
 bool Triangle::operator==(const Triangle &rhs) const
 {
     return v0 == rhs.v0 && v1 == rhs.v1 && v2 == rhs.v2;

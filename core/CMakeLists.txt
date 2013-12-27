@@ -1,4 +1,5 @@
 set(SOURCES
+  src/bounding_box.cpp
   src/obj_reader.cpp
   src/mesh.cpp
   src/ray.cpp
