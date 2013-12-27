@@ -7,6 +7,7 @@
 #include <sstream>
 
 using namespace lb;
+using namespace lb::math;
 
 enum class Token
 {
@@ -75,7 +76,7 @@ std::istream &operator >>(std::istream &in, Token &token)
 ObjReader::ObjReader(std::ifstream &objFile)
 {
     // The list of vertices making up the mesh.
-    std::vector<Vertex> vertices;
+    std::vector<Point> vertices;
 
     unsigned int lineNumber = 0;
 
@@ -98,7 +99,7 @@ ObjReader::ObjReader(std::ifstream &objFile)
             {
                 case Token::VERTEX:
                     {
-                        Vertex v;
+                        Point v;
                         ss >> v.x >> v.y >> v.z;
 
                         vertices.push_back(v);

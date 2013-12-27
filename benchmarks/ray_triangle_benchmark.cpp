@@ -17,7 +17,7 @@ void runIntersectionTests(unsigned int width, unsigned int height, unsigned int 
     {
         for (unsigned int j = 0; j < height; ++j)
         {
-            lb::Ray ray(lb::Vertex(0.0, 0.0, 800), lb::math::Vector(-0.5 * width, 0.5 * height - j, -800));
+            lb::Ray ray(lb::math::Point(0.0, 0.0, 800), lb::math::Vector(-0.5 * width, 0.5 * height - j, -800));
 
             for (unsigned int i = 0; i < width; ++i)
             {
@@ -129,7 +129,7 @@ int main(int argc, char **argv)
     const unsigned int height = 480;
 
     // For now, just intersect against a single triangle.
-    lb::Triangle triangle(lb::Vertex(0.0, 0.0, 0.0), lb::Vertex(200.0, 0.0, 0.0), lb::Vertex(100.0, 200.0, 0.0));
+    lb::Triangle triangle(lb::math::Point(0.0, 0.0, 0.0), lb::math::Point(200.0, 0.0, 0.0), lb::math::Point(100.0, 200.0, 0.0));
 
     // Run the intersection test once for a single frame, to prevent cluttered
     // overall benchmark results due to cache warmup effects.

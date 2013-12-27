@@ -17,8 +17,8 @@ CpuTriangleRenderer::CpuTriangleRenderer():
 void CpuTriangleRenderer::render(unsigned int width, unsigned int height, uint32_t *pixels) const
 {
     static int j = 0;
-    Triangle a(Vertex(0.0 + j % 200, 0.0, 0.0), Vertex(200.0 + j % 200, 0.0, 0.0), Vertex(200.0 + j % 200, 200.0, 0.0));
-    Triangle b(Vertex(0.0 + j % 200, 0.0, 0.0), Vertex(200.0 + j % 200, 200.0, 0.0), Vertex(0.0 + j % 200, 200.0, 0.0));
+    Triangle a(Point(0.0 + j % 200, 0.0, 0.0), Point(200.0 + j % 200, 0.0, 0.0), Point(200.0 + j % 200, 200.0, 0.0));
+    Triangle b(Point(0.0 + j % 200, 0.0, 0.0), Point(200.0 + j % 200, 200.0, 0.0), Point(0.0 + j % 200, 200.0, 0.0));
     j += 2;
 
     uint32_t *pixel = &(pixels[0]);

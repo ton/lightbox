@@ -63,6 +63,10 @@ class Vector
         double z;
 };
 
+// For now, define a point as a vector. Once this becomes cumbersome for some
+// reason, introduce a separate point class.
+typedef Vector Point;
+
 /// Global operator overload for scaling a vector \a v by a factor \a f.
 ///
 /// \param f factor to scale \a v with

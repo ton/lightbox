@@ -8,13 +8,10 @@
 
 namespace lb {
 
-/// A vertex is represented by a vector.
-typedef math::Vector Vertex;
-
 class Triangle
 {
     public:
-        Triangle(const Vertex &a, const Vertex &b, const Vertex &c);
+        Triangle(const math::Point &a, const math::Point &b, const math::Point &c);
 
         bool operator==(const Triangle &rhs) const;
 
@@ -22,19 +19,19 @@ class Triangle
 
         ///@{
         /// Three vertices uniquely defining the three corners of this triangle.
-        Vertex v0;
-        Vertex v1;
-        Vertex v2;
+        math::Point v0;
+        math::Point v1;
+        math::Point v2;
         ///@}
 
-        /// The edge from vertex 0 to vertex 1.
+        /// The edge from point 0 to point 1.
         math::Vector e0;
-        /// The edge from vertex 0 to vertex 2.
+        /// The edge from point 0 to point 2.
         math::Vector e1;
 
-        /// The edge from vertex 1 to vertex 2.
+        /// The edge from point 1 to point 2.
         math::Vector v1v2;
-        /// The edge from vertex 2 to vertex 0.
+        /// The edge from point 2 to point 0.
         math::Vector v2v0;
 
         /// Normal of the triangle.
