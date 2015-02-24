@@ -48,7 +48,7 @@ Vector Vector::operator/(double f) const
 {
     BOOST_ASSERT(f != 0);
     double inv = 1.f / f;
-    return Vector(x * inv, y * inv, z * inv);
+    return {x * inv, y * inv, z * inv};
 }
 
 /// Divides this vector by a factor \a f and returns a reference to itself.

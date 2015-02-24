@@ -22,7 +22,7 @@ class Vector
         /// \returns the vector that results from adding v to this vector
         Vector operator+(const Vector &v) const
         {
-            return Vector(x + v.x, y + v.y, z + v.z);
+            return {x + v.x, y + v.y, z + v.z};
         }
         Vector &operator+=(Vector const &v);
 
@@ -32,7 +32,7 @@ class Vector
         ///
         /// \param f factor to scale this vector with
         /// \returns the vector that results from scaling this vector with \a f
-        Vector operator*(double f) const { return Vector(x * f, y * f, z * f); }
+        Vector operator*(double f) const { return {x * f, y * f, z * f}; }
         Vector &operator*=(double f);
 
         Vector operator/(double f) const;
@@ -41,12 +41,12 @@ class Vector
         /// Unary negation operator.
         ///
         /// \returns a vector that points in the opposite direction of this vector
-        Vector operator-() const { return Vector(-x, -y, -z); }
+        Vector operator-() const { return {-x, -y, -z}; }
         /// Binary subtraction operator.
         ///
         /// \param v the vector to subtract from this vector
         /// \returns the vector pointing from \a v to this vector
-        Vector operator-(const Vector &v) const { return Vector(x - v.x, y - v.y, z - v.z); }
+        Vector operator-(const Vector &v) const { return {x - v.x, y - v.y, z - v.z}; }
 
         double length() const;
         double lengthSquared() const;
@@ -97,7 +97,7 @@ double absDot(const lb::math::Vector &v, const lb::math::Vector &w);
 /// \returns the cross product between the vectors \a v and \a w
 inline lb::math::Vector cross(const lb::math::Vector &v, const lb::math::Vector &w)
 {
-    return lb::math::Vector(v.y * w.z - v.z * w.y, v.z * w.x - v.x * w.z, v.x * w.y - v.y * w.x);
+    return {v.y * w.z - v.z * w.y, v.z * w.x - v.x * w.z, v.x * w.y - v.y * w.x};
 }
 
 /// Returns the dot product of the two vectors \a v and \a w.
