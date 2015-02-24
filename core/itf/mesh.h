@@ -24,7 +24,7 @@ class Mesh
         /// Returns all triangles in this mesh.
         ///
         /// \return all trianges in this mesh
-        const std::vector<Triangle> &triangles() { return triangles_; }
+        const std::vector<Triangle> &triangles() const { return triangles_; }
 
         /// Returns the bounds of this mesh in world coordinates.
         ///
