@@ -86,7 +86,7 @@ int main(int argc, char **argv)
         ("help,h", "Shows this help message")
         ("iterations,i", po::value<unsigned int>(&iterations), "Number of times to run the intersection tests")
         ("frames,f", po::value<unsigned int>(&frames), "Number of frames to render")
-        ("type", po::value<IntersectionAlgorithm>(&algorithm), "Type of intersection test ['didier_badouel', 'moller_trumbore', 'geometrically']");
+        ("type,t", po::value<IntersectionAlgorithm>(&algorithm), "Type of intersection test ['didier_badouel', 'moller_trumbore', 'geometrically']");
 
     po::variables_map vm;
 
