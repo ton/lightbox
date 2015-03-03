@@ -55,34 +55,34 @@ bool Ray::intersectsDidierBadouel(const Triangle &triangle) const
     {
         // Project on the YZ plane.
         u0 = P.y - triangle.v0.y;
-        u1 = triangle.v1.y - triangle.v0.y;
-        u2 = triangle.v2.y - triangle.v0.y;
+        u1 = triangle.e0.y;
+        u2 = triangle.e1.y;
 
         v0 = P.z - triangle.v0.z;
-        v1 = triangle.v1.z - triangle.v0.z;
-        v2 = triangle.v2.z - triangle.v0.z;
+        v1 = triangle.e0.z;
+        v2 = triangle.e1.z;
     }
     else if (triangle.n.y >= triangle.n.z)
     {
         // Project on the XZ plane.
         u0 = P.x - triangle.v0.x;
-        u1 = triangle.v1.x - triangle.v0.x;
-        u2 = triangle.v2.x - triangle.v0.x;
+        u1 = triangle.e0.x;
+        u2 = triangle.e1.x;
 
         v0 = P.z - triangle.v0.z;
-        v1 = triangle.v1.z - triangle.v0.z;
-        v2 = triangle.v2.z - triangle.v0.z;
+        v1 = triangle.e0.z;
+        v2 = triangle.e1.z;
     }
     else
     {
         // Project on the XY plane.
         u0 = P.x - triangle.v0.x;
-        u1 = triangle.v1.x - triangle.v0.x;
-        u2 = triangle.v2.x - triangle.v0.x;
+        u1 = triangle.e0.x;
+        u2 = triangle.e1.x;
 
         v0 = P.y - triangle.v0.y;
-        v1 = triangle.v1.y - triangle.v0.y;
-        v2 = triangle.v2.y - triangle.v0.y;
+        v1 = triangle.e0.y;
+        v2 = triangle.e1.y;
     }
 
     double beta = (v0 * u1 - u0 * v1) / (u1 * v2 - u2 * v1);
