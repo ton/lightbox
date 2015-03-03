@@ -13,11 +13,13 @@ namespace po = boost::program_options;
 void runIntersectionTests(unsigned int width, unsigned int height, unsigned int frames, const lb::Triangle &t,
         bool (lb::Ray::*intersectionMethod)(const lb::Triangle &) const)
 {
+    lb::math::Point origin(0.0, 0.0, 800.0);
+
     for (unsigned int frame = 0; frame < frames; ++frame)
     {
         for (unsigned int j = 0; j < height; ++j)
         {
-            lb::Ray ray(lb::math::Point(0.0, 0.0, 800), lb::math::Vector(-0.5 * width, 0.5 * height - j, -800));
+            lb::Ray ray(origin, lb::math::Vector(-0.5 * width, 0.5 * height - j, -800.0));
 
             for (unsigned int i = 0; i < width; ++i)
             {
