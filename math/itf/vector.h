@@ -55,10 +55,8 @@ class Vector
 
         /// X-component of the vector.
         double x;
-
         /// Y-component of the vector.
         double y;
-
         /// Z-component of the vector.
         double z;
 };
