@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(LightBox)
 
-set(CMAKE_CXX_FLAGS -std=c++0x)
+set(CMAKE_CXX_FLAGS "-std=c++0x")
 
 include(FindPkgConfig)
 pkg_search_module(SDL2 REQUIRED sdl2)
