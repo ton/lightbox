@@ -1,0 +1,24 @@
+markdown: kramdown
+
+# Setup
+title:            Lightbox
+tagline:          Fast Physically-Based Path Tracer
+paginate:         3
+baseurl:          /lightbox
+author:
+  name:           Ton van den Heuvel
+  url:            https://twitter.com/tonheuvel
+  email:          tonvandenheuvel@gmail.com
+
+# Custom vars
+version:          1.0.0
+github:
+  repo:           https://github.com/ton/lightbox
+
+# Includes an icon in the footer for each user name you enter
+footer-links:
+  github: ton
+
+# Permalinks
+#permalink:        pretty
+#relative_permalinks: true
