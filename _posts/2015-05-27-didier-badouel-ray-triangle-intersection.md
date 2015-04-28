@@ -128,7 +128,7 @@ $$
 \end{eqnarray}
 $$
 
-We can use this rewrite $$\eqref{2}$$ for the general case:
+We can use this to rewrite $$\eqref{2}$$ for the general case:
 
 $$
 \vector{u} = \alpha\vector{v} + \beta\vector{w}
