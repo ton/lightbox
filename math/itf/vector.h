@@ -6,59 +6,58 @@
 namespace lb {
 namespace math {
 
-class Vector
+struct Vector
 {
-    public:
-        /// Constructor.
-        ///
-        /// \param ax x component of the vector
-        /// \param ay y component of the vector
-        /// \param az z component of the vector
-        Vector(double ax = 0.0, double ay = 0.0, double az = 0.0): x(ax), y(ay), z(az) { }
+    /// Constructor.
+    ///
+    /// \param ax x component of the vector
+    /// \param ay y component of the vector
+    /// \param az z component of the vector
+    Vector(double ax = 0.0, double ay = 0.0, double az = 0.0): x(ax), y(ay), z(az) { }
 
-        /// Adds the vector \a v to this vector and returns the result vector.
-        ///
-        /// \param v vector to add to this vector
-        /// \returns the vector that results from adding v to this vector
-        Vector operator+(const Vector &v) const
-        {
-            return {x + v.x, y + v.y, z + v.z};
-        }
-        Vector &operator+=(Vector const &v);
+    /// Adds the vector \a v to this vector and returns the result vector.
+    ///
+    /// \param v vector to add to this vector
+    /// \returns the vector that results from adding v to this vector
+    Vector operator+(const Vector &v) const
+    {
+        return {x + v.x, y + v.y, z + v.z};
+    }
+    Vector &operator+=(Vector const &v);
 
-        bool operator==(const Vector &v) const;
+    bool operator==(const Vector &v) const;
 
-        /// Scales this vector by a factor \a f and returns the result vector.
-        ///
-        /// \param f factor to scale this vector with
-        /// \returns the vector that results from scaling this vector with \a f
-        Vector operator*(double f) const { return {x * f, y * f, z * f}; }
-        Vector &operator*=(double f);
+    /// Scales this vector by a factor \a f and returns the result vector.
+    ///
+    /// \param f factor to scale this vector with
+    /// \returns the vector that results from scaling this vector with \a f
+    Vector operator*(double f) const { return {x * f, y * f, z * f}; }
+    Vector &operator*=(double f);
 
-        Vector operator/(double f) const;
-        Vector &operator/=(double f);
+    Vector operator/(double f) const;
+    Vector &operator/=(double f);
 
-        /// Unary negation operator.
-        ///
-        /// \returns a vector that points in the opposite direction of this vector
-        Vector operator-() const { return {-x, -y, -z}; }
-        /// Binary subtraction operator.
-        ///
-        /// \param v the vector to subtract from this vector
-        /// \returns the vector pointing from \a v to this vector
-        Vector operator-(const Vector &v) const { return {x - v.x, y - v.y, z - v.z}; }
+    /// Unary negation operator.
+    ///
+    /// \returns a vector that points in the opposite direction of this vector
+    Vector operator-() const { return {-x, -y, -z}; }
+    /// Binary subtraction operator.
+    ///
+    /// \param v the vector to subtract from this vector
+    /// \returns the vector pointing from \a v to this vector
+    Vector operator-(const Vector &v) const { return {x - v.x, y - v.y, z - v.z}; }
 
-        double length() const;
-        double lengthSquared() const;
+    double length() const;
+    double lengthSquared() const;
 
-        Vector normalize() const;
+    Vector normalize() const;
 
-        /// X-component of the vector.
-        double x;
-        /// Y-component of the vector.
-        double y;
-        /// Z-component of the vector.
-        double z;
+    /// X-component of the vector.
+    double x;
+    /// Y-component of the vector.
+    double y;
+    /// Z-component of the vector.
+    double z;
 };
 
 // For now, define a point as a vector. Once this becomes cumbersome for some
