@@ -37,29 +37,29 @@ $$
 \begin{eqnarray}
 0 &=& \vector{N} \cdot (\point{P} - \point{V_0}) \\
   &=& \vector{N} \cdot \point{P} - \vector{N} \cdot \point{V_0} \\
-  &=& \vector{N} \cdot \point{P} + D \\
-  &=& A P_x + B P_y + C P_z + D
+  &=& \vector{N} \cdot \point{P} - D \\
+  &=& A P_x + B P_y + C P_z - D
 \end{eqnarray}
 $$
 
-where $$A$$, $$B$$, and $$C$$ are the $$x$$, $$y$$, and $$z$$ components of the normal $$\vector{N}$$, and $$D = -\vector{N} \cdot \point{V_0}$$. Finding the value for $$t$$ for which $$R(t)$$ lies on the plane that goes through thetriangle $$T$$ now boils down to finding the solution for the equation:
+which results in the plane equation for the plane through $$T$$. Here, $$A$$, $$B$$, and $$C$$ are the $$x$$, $$y$$, and $$z$$ components of the normal $$\vector{N}$$, and $$D = \vector{N} \cdot \point{V_0}$$. Finding the value for $$t$$ for which $$R(t)$$ lies on the plane that goes through thetriangle $$T$$ now boils down to finding the solution for the equation:
 
 $$
 \begin{eqnarray}
-\vector{N} \cdot \point{R}(t) + D &=& 0 \\
+\vector{N} \cdot \point{R}(t) - D &=& 0 \\
 \end{eqnarray}
 $$
 
 Substituting $$\point{O} + \vector{D}t$$ for $$R(t)$$ yields:
 
 $$
-\vector{N} \cdot (\point{O} + \vector{D}t) + D = 0
+\vector{N} \cdot (\point{O} + \vector{D}t) - D = 0
 $$
 
 Solving for $$t$$ results in:
 
 $$
-t = \frac{-(\vector{N} \cdot \point{O} + D)}{\vector{N} \cdot \vector{D}}
+t = \frac{-\vector{N} \cdot \point{O} + D}{\vector{N} \cdot \vector{D}}
 $$
 
 In case $$\vector{N} \cdot \vector{D} = 0$$, the ray is parallel with the plane, and there is no single intersection point. We have found an intersection with the plane that goes through the triangle in case $$t > 0$$. In practice, we need to check for $$t > \epsilon$$ for some small value $$\epsilon$$, otherwise, a ray originating from a triangle surface might self-intersect with the triangle it is originating from.
