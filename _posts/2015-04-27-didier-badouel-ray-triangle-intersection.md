@@ -118,33 +118,33 @@ i_0 = \left\{
 \right.
 $$
 
-Furthermore, assume that $$i_1$$ and $$i_2$$ are the indices different from $$i_0$$, with $$i_1, i_2 \in \{0, 1, 2\}$$. Projecting $$\vector{V_0P}$$, $$\vector{V_0V_1}$$, and $$\vector{V_0V_2}$$ results in three two-dimensional vectors $$\vector{u}$$, $$\vector{v}$$, and $$\vector{w}$$ respectively on the projection plane:
+Furthermore, assume that $$i_1$$ and $$i_2$$ are the indices different from $$i_0$$, with $$i_1, i_2 \in \{0, 1, 2\}$$. Projecting $$\vector{V_0P}$$, $$\vector{V_0V_1}$$, and $$\vector{V_0V_2}$$ results in three two-dimensional vectors $$\vector{a}$$, $$\vector{b}$$, and $$\vector{c}$$ respectively on the projection plane:
 
 $$
 \begin{eqnarray}
-\vector{u} & = & \begin{pmatrix}P_{i_1} - V_{0_{i_1}}\\P_{i_2} - V_{0_{i_2}}\end{pmatrix} \qquad
-\vector{v} & = & \begin{pmatrix}V_{1_{i_1}} - V_{0_{i_1}}\\V_{1_{i_2}} - V_{0_{i_2}}\end{pmatrix} \qquad
-\vector{w} & = & \begin{pmatrix}V_{2_{i_1}} - V_{0_{i_1}}\\V_{2_{i_2}} - V_{0_{i_2}}\end{pmatrix}
+\vector{a} & = & \begin{pmatrix}P_{i_1} - V_{0_{i_1}}\\P_{i_2} - V_{0_{i_2}}\end{pmatrix} \qquad
+\vector{b} & = & \begin{pmatrix}V_{1_{i_1}} - V_{0_{i_1}}\\V_{1_{i_2}} - V_{0_{i_2}}\end{pmatrix} \qquad
+\vector{c} & = & \begin{pmatrix}V_{2_{i_1}} - V_{0_{i_1}}\\V_{2_{i_2}} - V_{0_{i_2}}\end{pmatrix}
 \end{eqnarray}
 $$
 
 We can use this to rewrite $$\eqref{2}$$ for the general case:
 
 $$
-\vector{u} = \alpha\vector{v} + \beta\vector{w}
+\vector{a} = \alpha\vector{b} + \beta\vector{c}
 $$
 
 Which can be rewritten in matrix multiplication form as follows:
 
 $$
-\begin{pmatrix}v_x & w_x \\ v_y & w_y\end{pmatrix} \begin{pmatrix}\alpha \\ \beta\end{pmatrix} = \begin{pmatrix}u_x \\ u_y\end{pmatrix}
+\begin{pmatrix}b_u & c_u \\ b_v & c_v\end{pmatrix} \begin{pmatrix}\alpha \\ \beta\end{pmatrix} = \begin{pmatrix}a_u \\ a_v\end{pmatrix}
 $$
 
-Solving this using [Cramer's rule](https://en.wikipedia.org/wiki/Cramer%27s_rule) results in:
+We use the subscripts $$u$$ and $$v$$ here for the two dimensions of the projection plane. Solving this using [Cramer's rule](https://en.wikipedia.org/wiki/Cramer%27s_rule) results in:
 
 $$
-\alpha = \frac{\begin{vmatrix}u_x & w_x \\ u_y & w_y\end{vmatrix}}{\begin{vmatrix}v_x & w_x \\ v_y & w_y\end{vmatrix}} \qquad
-\beta = \frac{\begin{vmatrix}v_x & u_x \\ v_y & u_y\end{vmatrix}}{\begin{vmatrix}v_x & w_x \\ v_y & w_y\end{vmatrix}}
+\alpha = \frac{\begin{vmatrix}a_u & c_u \\ a_v & c_v\end{vmatrix}}{\begin{vmatrix}b_u & c_u \\ b_v & c_v\end{vmatrix}} \qquad
+\beta = \frac{\begin{vmatrix}b_u & a_u \\ b_v & a_v\end{vmatrix}}{\begin{vmatrix}b_u & c_u \\ b_v & c_v\end{vmatrix}}
 $$
 
-We can now trivially check whether the intersection point $$\point{P}$$ is within the triangle boundaries. In a following post I will look at C++ code that implements this algorithm.
+We can now trivially check whether the intersection point $$\point{P}$$ is within the triangle boundaries. In the next article I will look at the ray-triangle intersection proposed by Ingo Wald, which improves upon this algorithm.
