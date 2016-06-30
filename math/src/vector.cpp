@@ -6,9 +6,6 @@
 using namespace lb::math;
 
 /// Adds the vector \a v to this vector.
-///
-/// \param v vector to add to this vector
-/// \returns a reference to this vector after adding vector \a v
 Vector &Vector::operator+=(const Vector &v)
 {
     x += v.x;
@@ -18,20 +15,13 @@ Vector &Vector::operator+=(const Vector &v)
     return *this;
 }
 
-/// Equality operator.
-///
-/// \param v vector to compare this vector with
-/// \returns \c true in case this vector is equal to \a v, \c false
-///   otherwise
+/// Returns whether this vector equals the given vector \a v.
 bool Vector::operator==(const Vector &v) const
 {
     return x == v.x && y == v.y && z == v.z;
 }
 
 /// Scales this vector by a factor \a f and returns a reference to itself.
-///
-/// \param f factor to scale this vector with
-/// \returns a reference to this vector after scaling it by a factor \a f
 Vector &Vector::operator*=(double f)
 {
     x *= f;
@@ -41,9 +31,6 @@ Vector &Vector::operator*=(double f)
 }
 
 /// Divides this vector by a factor \a f and returns the result vector.
-///
-/// \param f factor to divide this vector with
-/// \returns the vector that results from dividing this vector with \a f
 Vector Vector::operator/(double f) const
 {
     BOOST_ASSERT(f != 0);
@@ -52,9 +39,6 @@ Vector Vector::operator/(double f) const
 }
 
 /// Divides this vector by a factor \a f and returns a reference to itself.
-///
-/// \param f factor to divide this vector with
-/// \returns a reference to this vector after dividing it by a factor \a f
 Vector &Vector::operator/=(double f)
 {
     BOOST_ASSERT(f != 0);
@@ -66,33 +50,25 @@ Vector &Vector::operator/=(double f)
 }
 
 /// Calculates the length of this vector and returns it.
-///
-/// \returns the length of this vector
 double Vector::length() const
 {
     return std::sqrt(lengthSquared());
 }
 
 /// Calculates the square of the length of this vector and returns it.
-///
-/// \returns the square of the length of this vector
 double Vector::lengthSquared() const
 {
     return x * x + y * y + z * z;
 }
 
-/// Calculates a vector that points in the same direction as this vector with length 1 and returns it.
-///
-/// \returns a vector that points in the same direction as this vector with length 1
+/// Calculates a vector that points in the same direction as this vector with
+/// length 1 and returns it.
 Vector Vector::normalize() const
 {
     return *this / length();
 }
 
 /// Streams a textual representation of the vector \a v to \a out.
-///
-/// \param out output stream to send the textual representation of \a v to
-/// \param v vector to create a textual representation for
 std::ostream &lb::math::operator<<(std::ostream &out, const Vector &v)
 {
     out << "(" << v.x << ", " << v.y << ", " << v.z << ")";
@@ -100,10 +76,6 @@ std::ostream &lb::math::operator<<(std::ostream &out, const Vector &v)
 
 /// Returns the absolute value of the dot product of the two vectors \a v and \a
 /// w.
-///
-/// \param v left-hand side argument of the dot product
-/// \param w right-hand side argument of the dot product
-/// \return the absolute value of the dot product of two vectors \a v and \a w
 double absDot(const Vector &v, const Vector &w)
 {
     return std::fabs(dot(v, w));

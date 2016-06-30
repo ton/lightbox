@@ -24,8 +24,6 @@ class Exception: public std::exception
         /// Replace the first occurrence of an argument placeholder (%#%) in an exception
         /// message with the given argument, where the # represents a number to be able
         /// to order multiple arguments in the exception message.
-        ///
-        /// \param argument the argument to insert in the exception message
         template<typename T>
         Exception operator %(const T &argument)
         {
@@ -99,8 +97,6 @@ class RuntimeException: public Exception
     public:
         /// Creates a runtime exception for the given error \a code and
         /// exception \a message.
-        ///
-        /// \param code the error code to create a runtime exception for
         template<typename ErrorCode>
         RuntimeException(ErrorCode code): Exception(code) { }
 
@@ -115,8 +111,6 @@ class ParseException: public Exception
     public:
         /// Creates a parse exception for the given error \a code and exception
         /// \a message.
-        ///
-        /// \param code the error code to create a parse exception for
         template<typename ErrorCode>
         ParseException(ErrorCode code): Exception(code) { }
 

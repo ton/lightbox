@@ -52,10 +52,6 @@ void BoundingBox::extend(const BoundingBox &rhs)
 }
 
 /// Prints a textual representation of the given \a boundingBox to \a out.
-///
-/// \param out the output stream
-/// \param boundingBox the bounding box to print to \a out
-/// \return the output stream
 std::ostream &lb::operator<<(std::ostream &out, const BoundingBox &boundingBox)
 {
     out << "Bounding box, pMin: " << boundingBox.pMin << ", pMax: " << boundingBox.pMax << std::endl;

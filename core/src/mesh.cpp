@@ -4,8 +4,6 @@
 using namespace lb;
 
 /// Returns the bounding box of this mesh.
-///
-/// \return the bounding box of this mesh
 BoundingBox Mesh::bounds() const
 {
     BoundingBox result;

@@ -21,8 +21,6 @@ Triangle::Triangle(const Point &a, const Point &b, const Point &c):
 }
 
 /// Returns the bounding box of this triangle.
-///
-/// \returns the bounding box of this triangle
 BoundingBox Triangle::bounds() const
 {
     BoundingBox result;
@@ -38,10 +36,6 @@ bool Triangle::operator==(const Triangle &rhs) const
 }
 
 /// Prints a textual representation of the given \a triangle to \a out.
-///
-/// \param out the output stream
-/// \param triangle the triangle to print to \a out
-/// \return the output stream
 std::ostream &lb::operator<<(std::ostream &out, const Triangle &triangle)
 {
     out << "Triangle, v0: " << triangle.v0 << ", v1: " << triangle.v1 << ", v2: " << triangle.v2 << std::endl;

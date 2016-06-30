@@ -19,10 +19,6 @@ class Renderer
 
         /// Renders an image to the given pixel buffer with a resolution of \a
         /// width by \a height pixels.
-        ///
-        /// \param width the width of the pixel buffer
-        /// \param height the height of the pixel buffer
-        /// \param pixels the pixel buffer
         virtual void render(unsigned int width, unsigned int height, uint32_t *pixels) const = 0;
 };
 

@@ -15,18 +15,12 @@ class Mesh
 {
     public:
         /// Adds triangle \a t to this mesh.
-        ///
-        /// \param t triange to add to this mesh
         void addTriangle(const Triangle &t) { triangles_.push_back(t); }
 
         /// Returns all triangles in this mesh.
-        ///
-        /// \return all trianges in this mesh
         const std::vector<Triangle> &triangles() const { return triangles_; }
 
         /// Returns the bounds of this mesh in world coordinates.
-        ///
-        /// \returns the bounds of this mesh in world coordinates
         BoundingBox bounds() const;
 
     private:

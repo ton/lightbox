@@ -16,10 +16,6 @@ Ray::Ray(const Vector &origin, const Vector &direction):
 
 /// Implements the 'Efficient Ray-Polygon Intersection' algorithm as described
 /// by Didier Badouel in Graphics Gems I, first published in 1990.
-///
-/// \param triangle the triangle to check for an intersection with this ray
-/// \return \c true in case this ray intersects the given \a triangle, \c false
-///     otherwise
 bool Ray::intersectsDidierBadouel(const Triangle &triangle) const
 {
     double k = dot(triangle.n, d);
@@ -99,10 +95,6 @@ bool Ray::intersectsDidierBadouel(const Triangle &triangle) const
 /// intersection problem. The intersection point P with the plane the triangle
 /// lies in is first determined. Subsequently, the algorithm checks whether P
 /// lies within the triangle boundaries.
-///
-/// \param triangle the triangle to check for an intersection with this ray
-/// \return \c true in case this ray intersects the given \a triangle, \c false
-///     otherwise
 bool Ray::intersectsGeometrically(const Triangle &triangle) const
 {
     double k = dot(triangle.n, d);
@@ -135,10 +127,6 @@ bool Ray::intersectsGeometrically(const Triangle &triangle) const
 
 /// Implementation of the Moller/Trumbore algorithm, described in their paper
 /// 'Fast Minimum-Storage Ray-Triangle Intersection', published in 1997.
-///
-/// \param triangle the triangle to check for an intersection with this ray
-/// \return \c true in case this ray intersects the given \a triangle, \c false
-///     otherwise
 bool Ray::intersectsMollerTrumbore(const Triangle &triangle) const
 {
     Vector P = cross(d, triangle.e1);
