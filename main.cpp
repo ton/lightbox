@@ -38,9 +38,6 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    // Load the triangle mesh.
-    lb::Mesh m = lb::Mesh::loadFromObj(objMeshFile);
-
     // Create the CPU based triangle renderer.
     lb::ui::SdlWindow window("LightBox", WINDOW_WIDTH, WINDOW_HEIGHT);
     window.show(lb::CpuTriangleRenderer());

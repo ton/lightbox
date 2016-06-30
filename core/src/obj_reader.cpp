@@ -1,4 +1,4 @@
-#include "obj_reader.h"
+#include "core/itf/obj_reader.h"
 
 #include "common/itf/exception.h"
 #include "core/itf/errors.h"
@@ -72,22 +72,20 @@ std::istream &operator >>(std::istream &in, Token &token)
 
 }
 
-/// Constructs an OBJ reader using the data from the given input stream \a
-/// objFile.
-///
-/// \param objFile input stream containing OBJ data
-/// \throw ParseException in case of a parse error
-ObjReader::ObjReader(std::ifstream &objFile)
+/// Loads the mesh from the input stream associated with this OBJ reader.
+std::unique_ptr<Mesh> ObjReader::loadMesh(std::istream& is)
 {
+    std::unique_ptr<Mesh> mesh(new Mesh);
+
     // The list of vertices making up the mesh.
     std::vector<Point> vertices;
 
     unsigned int lineNumber = 0;
 
-    while (objFile.good())
+    while (is.good())
     {
         std::string line;
-        std::getline(objFile, line);
+        std::getline(is, line);
 
         // In case the line starts with a 'v', a vertex is defined.
         if (!line.empty())
@@ -154,7 +152,7 @@ ObjReader::ObjReader(std::ifstream &objFile)
                         // TODO: Raise an exception in case a face contains more
                         // than three vertices.
 
-                        mesh_.addTriangle(Triangle(vertices[v0], vertices[v1], vertices[v2]));
+                        mesh->addTriangle(Triangle(vertices[v0], vertices[v1], vertices[v2]));
                     }
                     break;
                 case Token::UNKNOWN:
@@ -176,6 +174,8 @@ ObjReader::ObjReader(std::ifstream &objFile)
 
         ++lineNumber;
     }
+
+    return std::move(mesh);
 }
 
 /// Reads in a vertex from an OBJ file. Note that a vertex definition in an OBJ

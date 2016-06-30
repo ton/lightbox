@@ -14,8 +14,6 @@ namespace lb {
 class Mesh
 {
     public:
-        static Mesh loadFromObj(std::ifstream &objFile);
-
         /// Adds triangle \a t to this mesh.
         ///
         /// \param t triange to add to this mesh
