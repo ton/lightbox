@@ -9,6 +9,8 @@
 using namespace lb;
 using namespace lb::math;
 
+namespace {
+
 enum class Token
 {
     COMMENT,
@@ -66,6 +68,8 @@ std::istream &operator >>(std::istream &in, Token &token)
     }
 
     return in;
+}
+
 }
 
 /// Constructs an OBJ reader using the data from the given input stream \a
