@@ -1,7 +1,7 @@
 #ifndef LB_RAY_H
 #define LB_RAY_H
 
-#include "math/itf/vector.h"
+#include "math/itf/vector_3d.h"
 
 #include <ostream>
 
@@ -12,16 +12,17 @@ class Triangle;
 class Ray
 {
     public:
-        Ray(const math::Vector &o, const math::Vector &d);
+        Ray() = default;
+        Ray(const Vector3d &o, const Vector3d &d);
 
         bool intersectsDidierBadouel(const Triangle &t) const;
         bool intersectsGeometrically(const Triangle &t) const;
         bool intersectsMollerTrumbore(const Triangle &t) const;
 
         /// Origin of the ray.
-        math::Vector o;
+        Vector3d o;
         /// Direction of the ray.
-        math::Vector d;
+        Vector3d d;
 };
 
 std::ostream &operator<<(std::ostream &out, const Ray &r);

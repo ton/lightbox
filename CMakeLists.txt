@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(LightBox)
 
-set(CMAKE_CXX_FLAGS "-std=c++0x")
+set(CMAKE_CXX_FLAGS "-std=c++14")
 
 include(FindPkgConfig)
 pkg_search_module(SDL2 REQUIRED sdl2)
@@ -23,8 +23,11 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build/lib")
 include_directories(.)
 
 add_subdirectory(math)
+add_subdirectory(cameras)
 add_subdirectory(core)
-add_subdirectory(renderers)
+add_subdirectory(films)
+add_subdirectory(integrators)
+add_subdirectory(samplers)
 add_subdirectory(ui)
 
 set(SOURCES
@@ -46,7 +49,7 @@ add_custom_target(DroidFont ALL
   DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/DroidSansMono.ttf
 )
 
-target_link_libraries(lightbox ${SDL2_LIBRARIES} SDL2_ttf lb_ui lb_core lb_renderers lb_math)
+target_link_libraries(lightbox ${SDL2_LIBRARIES} SDL2_ttf lb_ui lb_core lb_math lb_integrators lb_cameras lb_films lb_samplers)
 
 enable_testing()
 find_package(GTest REQUIRED)

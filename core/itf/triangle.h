@@ -2,7 +2,7 @@
 #define LB_TRIANGLE_H
 
 #include "core/itf/bounding_box.h"
-#include "math/itf/vector.h"
+#include "math/itf/vector_3d.h"
 
 #include <ostream>
 
@@ -11,7 +11,7 @@ namespace lb {
 class Triangle
 {
     public:
-        Triangle(const math::Point &a, const math::Point &b, const math::Point &c);
+        Triangle(const Point3d &a, const Point3d &b, const Point3d &c);
 
         bool operator==(const Triangle &rhs) const;
 
@@ -19,23 +19,23 @@ class Triangle
 
         ///@{
         /// Three vertices uniquely defining the three corners of this triangle.
-        math::Point v0;
-        math::Point v1;
-        math::Point v2;
+        Point3d v0;
+        Point3d v1;
+        Point3d v2;
         ///@}
 
         /// The edge from point 0 to point 1.
-        math::Vector e0;
+        Vector3d e0;
         /// The edge from point 0 to point 2.
-        math::Vector e1;
+        Vector3d e1;
 
         /// The edge from point 1 to point 2.
-        math::Vector v1v2;
+        Vector3d v1v2;
         /// The edge from point 2 to point 0.
-        math::Vector v2v0;
+        Vector3d v2v0;
 
         /// Normal of the triangle.
-        math::Vector n;
+        Vector3d n;
 
         /// Constant D in the plane equation of this triangle.
         double D;

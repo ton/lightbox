@@ -6,7 +6,6 @@
 #include <fstream>
 
 using namespace lb;
-using namespace lb::math;
 
 BENCHMARK_TEST_FIXTURE(ObjReaderTest);
 
@@ -21,7 +20,7 @@ TEST_F(ObjReaderTest, TestLoadTriangleMesh)
     EXPECT_EQ(1, m->triangles().size());
 
     // Test that the triangle was correctly read.
-    Triangle expected(Point(0.0, 0.0, 0.0), Point(1.0, 0.0, 0.0), Point(0.0, 1.0, 0.0));
+    Triangle expected(Point3d(0.0, 0.0, 0.0), Point3d(1.0, 0.0, 0.0), Point3d(0.0, 1.0, 0.0));
     EXPECT_EQ(expected, m->triangles().front());
 }
 

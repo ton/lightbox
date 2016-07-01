@@ -7,7 +7,6 @@
 #include <sstream>
 
 using namespace lb;
-using namespace lb::math;
 
 namespace {
 
@@ -78,7 +77,7 @@ std::unique_ptr<Mesh> ObjReader::loadMesh(std::istream& is)
     std::unique_ptr<Mesh> mesh(new Mesh);
 
     // The list of vertices making up the mesh.
-    std::vector<Point> vertices;
+    std::vector<Point3d> vertices;
 
     unsigned int lineNumber = 0;
 
@@ -101,7 +100,7 @@ std::unique_ptr<Mesh> ObjReader::loadMesh(std::istream& is)
             {
                 case Token::VERTEX:
                     {
-                        Point v;
+                        Point3d v;
                         ss >> v.x >> v.y >> v.z;
 
                         vertices.push_back(v);

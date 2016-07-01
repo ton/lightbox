@@ -1,13 +1,10 @@
 #include "core/itf/triangle.h"
 
-#include "math/itf/vector.h"
-
 #include <iostream>
 
 using namespace lb;
-using namespace lb::math;
 
-Triangle::Triangle(const Point &a, const Point &b, const Point &c):
+Triangle::Triangle(const Point3d &a, const Point3d &b, const Point3d &c):
     v0(a),
     v1(b),
     v2(c),

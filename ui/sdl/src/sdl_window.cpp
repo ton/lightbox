@@ -1,6 +1,7 @@
 #include "ui/sdl/itf/sdl_window.h"
 
-#include "core/itf/renderer.h"
+#include "core/itf/camera.h"
+#include "core/itf/scene.h"
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_ttf.h"
@@ -11,12 +12,14 @@
 
 using namespace lb::ui;
 
-SdlWindow::SdlWindow(const std::string &title, unsigned int width, unsigned int height):
+SdlWindow::SdlWindow(
+        const std::string &title, unsigned int width, unsigned int height,
+        uint32_t* offscreenBuffer):
     Window(width, height),
     sdlWindow_(nullptr),
     sdlRenderer_(nullptr),
     overlayFont_(nullptr),
-    pixels_(new uint32_t[width * height]),
+    offscreenBuffer_(offscreenBuffer),
     texture_(nullptr)
 {
     if (SDL_Init(SDL_INIT_VIDEO) == -1)
@@ -69,7 +72,7 @@ SdlWindow::~SdlWindow()
 /// Shows the window, and loads the given \a scene data
 ///
 /// \param scene the scene to render
-void SdlWindow::show(const Renderer &renderer)
+void SdlWindow::show(Scene& scene)
 {
     // Starts the SDL event loop, and repeatedly calls renderer to render an
     // image to the screen.
@@ -82,7 +85,24 @@ void SdlWindow::show(const Renderer &renderer)
             switch (e.type)
             {
                 case SDL_KEYDOWN:
-                    quit = e.key.keysym.sym == SDLK_q;
+                    switch (e.key.keysym.sym)
+                    {
+                        case SDLK_q:
+                            quit = true;
+                            break;
+                        case SDLK_UP:
+                            scene.camera().setLocation(scene.camera().location() + Vector3d(0.0, 0.1, 0.0));
+                            break;
+                        case SDLK_DOWN:
+                            scene.camera().setLocation(scene.camera().location() - Vector3d(0.0, 0.1, 0.0));
+                            break;
+                        case SDLK_LEFT:
+                            scene.camera().setLocation(scene.camera().location() - Vector3d(0.1, 0.0, 0.0));
+                            break;
+                        case SDLK_RIGHT:
+                            scene.camera().setLocation(scene.camera().location() + Vector3d(0.1, 0.0, 0.0));
+                            break;
+                    }
                     break;
                 case SDL_QUIT:
                     quit = true;
@@ -96,10 +116,10 @@ void SdlWindow::show(const Renderer &renderer)
         int startTicks = SDL_GetTicks();
 
         // Render using the supplied renderer.
-        renderer.render(width(), height(), pixels_.get());
+        scene.render();
 
         // Upload the pixel data to the texture.
-        SDL_UpdateTexture(texture_, nullptr, pixels_.get(), width() * sizeof(uint32_t));
+        SDL_UpdateTexture(texture_, nullptr, offscreenBuffer_, width() * sizeof(uint32_t));
 
         // Draw the texture on the screen.
         SDL_RenderCopy(sdlRenderer_, texture_, nullptr, nullptr);
@@ -110,7 +130,7 @@ void SdlWindow::show(const Renderer &renderer)
         {
             std::stringstream ss;
             ss << "FPS: " << std::setprecision(3) << std::fixed << 1000. / delta;
-            SDL_Surface *text = TTF_RenderText_Solid(overlayFont_, ss.str().c_str(), {255, 255, 255});
+            SDL_Surface *text = TTF_RenderText_Solid(overlayFont_, ss.str().c_str(), {10, 255, 10});
             SDL_Texture *textTexture = SDL_CreateTextureFromSurface(sdlRenderer_, text);
             SDL_SetTextureBlendMode(textTexture, SDL_BLENDMODE_BLEND);
 

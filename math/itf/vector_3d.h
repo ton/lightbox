@@ -1,41 +1,40 @@
-#ifndef LB_MATH_VECTOR_H
-#define LB_MATH_VECTOR_H
+#ifndef LB_MATH_VECTOR_3D_H
+#define LB_MATH_VECTOR_3D_H
 
 #include <ostream>
 
 namespace lb {
-namespace math {
 
-struct Vector
+struct Vector3d
 {
     /// Constructor.
-    Vector(double ax = 0.0, double ay = 0.0, double az = 0.0): x(ax), y(ay), z(az) { }
+    Vector3d(double ax = 0.0, double ay = 0.0, double az = 0.0): x(ax), y(ay), z(az) { }
 
     /// Adds the vector \a v to this vector and returns the result vector.
-    Vector operator+(const Vector &v) const
+    Vector3d operator+(const Vector3d &v) const
     {
         return {x + v.x, y + v.y, z + v.z};
     }
-    Vector &operator+=(Vector const &v);
+    Vector3d &operator+=(Vector3d const &v);
 
-    bool operator==(const Vector &v) const;
+    bool operator==(const Vector3d &v) const;
 
     /// Scales this vector by a factor \a f and returns the result vector.
-    Vector operator*(double f) const { return {x * f, y * f, z * f}; }
-    Vector &operator*=(double f);
+    Vector3d operator*(double f) const { return {x * f, y * f, z * f}; }
+    Vector3d &operator*=(double f);
 
-    Vector operator/(double f) const;
-    Vector &operator/=(double f);
+    Vector3d operator/(double f) const;
+    Vector3d &operator/=(double f);
 
     /// Unary negation operator.
-    Vector operator-() const { return {-x, -y, -z}; }
+    Vector3d operator-() const { return {-x, -y, -z}; }
     /// Binary subtraction operator.
-    Vector operator-(const Vector &v) const { return {x - v.x, y - v.y, z - v.z}; }
+    Vector3d operator-(const Vector3d &v) const { return {x - v.x, y - v.y, z - v.z}; }
 
     double length() const;
     double lengthSquared() const;
 
-    Vector normalize() const;
+    Vector3d normalize() const;
 
     /// X-component of the vector.
     double x;
@@ -47,19 +46,19 @@ struct Vector
 
 // For now, define a point as a vector. Once this becomes cumbersome for some
 // reason, introduce a separate point class.
-typedef Vector Point;
+typedef Vector3d Point3d;
 
 /// Global operator overload for scaling a vector \a v by a factor \a f.
-inline Vector operator*(double f, const Vector &v)
+inline Vector3d operator*(double f, const Vector3d &v)
 {
     return v * f;
 }
 
-std::ostream &operator<<(std::ostream &out, const Vector &v);
+std::ostream &operator<<(std::ostream &out, const Vector3d &v);
 
-}}
+}
 
-double absDot(const lb::math::Vector &v, const lb::math::Vector &w);
+double absDot(const lb::Vector3d &v, const lb::Vector3d &w);
 
 /// Calculates the cross product between the vectors \a v and \a w and returns
 /// it.
@@ -69,13 +68,13 @@ double absDot(const lb::math::Vector &v, const lb::math::Vector &w);
 /// coordinate system. Thus, the handedness of the coordinate system determines
 /// the direction of the cross product. This implementation uses the definition
 /// of a cross product in a left-handed coordinate system.
-inline lb::math::Vector cross(const lb::math::Vector &v, const lb::math::Vector &w)
+inline lb::Vector3d cross(const lb::Vector3d &v, const lb::Vector3d &w)
 {
     return {v.y * w.z - v.z * w.y, v.z * w.x - v.x * w.z, v.x * w.y - v.y * w.x};
 }
 
 /// Returns the dot product of the two vectors \a v and \a w.
-inline double dot(const lb::math::Vector &v, const lb::math::Vector &w)
+inline double dot(const lb::Vector3d &v, const lb::Vector3d &w)
 {
     return v.x * w.x + v.y * w.y + v.z * w.z;
 }

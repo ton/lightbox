@@ -8,7 +8,7 @@
 using namespace lb;
 using namespace lb::math;
 
-Ray::Ray(const Vector &origin, const Vector &direction):
+Ray::Ray(const Vector3d &origin, const Vector3d &direction):
     o(origin),
     d(direction)
 {
@@ -37,7 +37,7 @@ bool Ray::intersectsDidierBadouel(const Triangle &triangle) const
     }
 
     // Find the intersection point P.
-    Vector P = o + t * d;
+    Vector3d P = o + t * d;
 
     // Project the triangle on either the XY, XZ, or YZ plane, such that the
     // projection is as large as possible, and not a flat line (in case the
@@ -116,7 +116,7 @@ bool Ray::intersectsGeometrically(const Triangle &triangle) const
     }
 
     // Find the intersection point P.
-    Vector P = o + t * d;
+    Vector3d P = o + t * d;
 
     // The ray intersects the plane of the triangle. Now determine whether the
     // intersection point lies within the triangle.
@@ -129,7 +129,7 @@ bool Ray::intersectsGeometrically(const Triangle &triangle) const
 /// 'Fast Minimum-Storage Ray-Triangle Intersection', published in 1997.
 bool Ray::intersectsMollerTrumbore(const Triangle &triangle) const
 {
-    Vector P = cross(d, triangle.e1);
+    Vector3d P = cross(d, triangle.e1);
 
     double determinant = dot(P, triangle.e0);
     if (determinant < EPSILON)
@@ -137,7 +137,7 @@ bool Ray::intersectsMollerTrumbore(const Triangle &triangle) const
         return false;
     }
 
-    Vector T = o - triangle.v0;
+    Vector3d T = o - triangle.v0;
 
     // Now calculate the barycentric coordinates u and v.
     double u = dot(P, T);
@@ -158,8 +158,7 @@ bool Ray::intersectsMollerTrumbore(const Triangle &triangle) const
 
 std::ostream &lb::operator<<(std::ostream &out, const Ray &r)
 {
-    out << "Ray, origin: " << r.o << ", direction: " << r.d << std::endl;
-    return out;
+    return out << "Ray, origin: " << r.o << ", direction: " << r.d << "\n";
 }
 
 std::ostream &lb::operator<<(std::ostream &out, const IntersectionMethod &intersectionMethod)

@@ -1,5 +1,6 @@
 set(SOURCES
-  src/vector.cpp)
+  src/vector_2d.cpp
+  src/vector_3d.cpp)
 
 add_library(lb_math SHARED ${SOURCES})
 

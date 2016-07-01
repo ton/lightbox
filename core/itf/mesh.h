@@ -1,14 +1,14 @@
 #ifndef LB_MESH_H
 #define LB_MESH_H
 
-#include "math/itf/vector.h"
-
 #include "triangle.h"
 
 #include <fstream>
 #include <vector>
 
 namespace lb {
+
+class Ray;
 
 /// Class representing an unstructured triangle mesh.
 class Mesh
@@ -22,6 +22,8 @@ class Mesh
 
         /// Returns the bounds of this mesh in world coordinates.
         BoundingBox bounds() const;
+
+        bool intersects(const Ray& ray) const;
 
     private:
         std::vector<Triangle> triangles_;

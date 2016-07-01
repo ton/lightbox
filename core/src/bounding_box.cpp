@@ -16,7 +16,7 @@ BoundingBox::BoundingBox():
 ///     the new bounding box
 /// \param q either the front lower left or back upper right corner of
 ///     the new bounding box
-BoundingBox::BoundingBox(const math::Point &p, const math::Point &q):
+BoundingBox::BoundingBox(const Point3d &p, const Point3d &q):
     pMin(std::min(p.x, q.x), std::min(p.y, q.y), std::min(p.z, q.z)),
     pMax(std::max(p.x, q.x), std::max(p.y, q.y), std::max(p.z, q.z))
 {
@@ -24,7 +24,7 @@ BoundingBox::BoundingBox(const math::Point &p, const math::Point &q):
 
 /// Extends this bounding box to contain the given point \a p in case \a p is
 /// not yet contained in this bounding box.
-void BoundingBox::extend(const math::Point &p)
+void BoundingBox::extend(const Point3d &p)
 {
     pMin.x = std::min(pMin.x, p.x);
     pMin.y = std::min(pMin.y, p.y);

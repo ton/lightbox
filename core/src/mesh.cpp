@@ -1,5 +1,9 @@
 #include "core/itf/mesh.h"
+
+#include "core/itf/ray.h"
 #include "core/itf/triangle.h"
+
+#include <iostream>
 
 using namespace lb;
 
@@ -15,4 +19,18 @@ BoundingBox Mesh::bounds() const
     }
 
     return result;
+}
+
+/// Calculates whether the given \a ray intersects with this mesh.
+bool Mesh::intersects(const Ray& ray) const
+{
+    for (const Triangle& t : triangles_)
+    {
+        if (ray.intersectsMollerTrumbore(t))
+        {
+            return true;
+        }
+    }
+
+    return false;
 }

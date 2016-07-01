@@ -13,13 +13,13 @@ namespace po = boost::program_options;
 void runIntersectionTests(unsigned int width, unsigned int height, unsigned int frames, const lb::Triangle &t,
         bool (lb::Ray::*intersectionMethod)(const lb::Triangle &) const)
 {
-    lb::math::Point origin(0.0, 0.0, 800.0);
+    lb::Point3d origin(0.0, 0.0, 800.0);
 
     for (unsigned int frame = 0; frame < frames; ++frame)
     {
         for (unsigned int j = 0; j < height; ++j)
         {
-            lb::Ray ray(origin, lb::math::Vector(-0.5 * width, 0.5 * height - j, -800.0));
+            lb::Ray ray(origin, lb::Vector3d(-0.5 * width, 0.5 * height - j, -800.0));
 
             for (unsigned int i = 0; i < width; ++i)
             {
@@ -131,7 +131,7 @@ int main(int argc, char **argv)
     const unsigned int height = 480;
 
     // For now, just intersect against a single triangle.
-    lb::Triangle triangle(lb::math::Point(0.0, 0.0, 0.0), lb::math::Point(200.0, 0.0, 0.0), lb::math::Point(100.0, 200.0, 0.0));
+    lb::Triangle triangle(lb::Point3d(0.0, 0.0, 0.0), lb::Point3d(200.0, 0.0, 0.0), lb::Point3d(100.0, 200.0, 0.0));
 
     // Run the intersection test once for a single frame, to prevent cluttered
     // overall benchmark results due to cache warmup effects.
