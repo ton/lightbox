@@ -6,6 +6,7 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_ttf.h"
 
+#include <chrono>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -113,7 +114,7 @@ void SdlWindow::show(Scene& scene)
         }
 
         // Create static noise.
-        int startTicks = SDL_GetTicks();
+        auto start = std::chrono::high_resolution_clock::now();
 
         // Render using the supplied renderer.
         scene.render();
@@ -125,11 +126,11 @@ void SdlWindow::show(Scene& scene)
         SDL_RenderCopy(sdlRenderer_, texture_, nullptr, nullptr);
 
         // Show FPS.
-        int delta = SDL_GetTicks() - startTicks;
+        int delta = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start).count();
         if (delta != 0)
         {
             std::stringstream ss;
-            ss << "FPS: " << std::setprecision(3) << std::fixed << 1000. / delta;
+            ss << "FPS: " << std::setprecision(3) << std::fixed << 1.0e6 / delta;
             SDL_Surface *text = TTF_RenderText_Solid(overlayFont_, ss.str().c_str(), {10, 255, 10});
             SDL_Texture *textTexture = SDL_CreateTextureFromSurface(sdlRenderer_, text);
             SDL_SetTextureBlendMode(textTexture, SDL_BLENDMODE_BLEND);
