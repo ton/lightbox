@@ -6,7 +6,6 @@
 #include <iostream>
 
 using namespace lb;
-using namespace lb::math;
 
 Ray::Ray(const Vector3d &origin, const Vector3d &direction):
     o(origin),
