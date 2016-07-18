@@ -34,7 +34,8 @@ struct Vector3d
     double length() const;
     double lengthSquared() const;
 
-    Vector3d normalize() const;
+    void normalize();
+    Vector3d normalized() const;
 
     /// X-component of the vector.
     double x;

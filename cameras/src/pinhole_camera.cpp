@@ -15,7 +15,7 @@ PinholeCamera::PinholeCamera(std::unique_ptr<Film> film,
     Camera(std::move(film), location),
     lookAt_(lookAt),
     left_(-cross(lookAt, up)),
-    top_(cross(lookAt.normalize(), left_)),
+    top_(cross(lookAt.normalized(), left_)),
     dx_(-2 * left_ / (film_->xResolution() - 1)),
     dy_(-2 * top_ / (film_->yResolution() - 1))
 {
@@ -24,5 +24,5 @@ PinholeCamera::PinholeCamera(std::unique_ptr<Film> film,
 void PinholeCamera::calculateRay(const Sample& s, Ray& r) const
 {
     r.o = location_;
-    r.d = ((r.o + lookAt_ + left_ + s.imageX * dx_ + top_ + s.imageY * dy_) - r.o).normalize();
+    r.d = ((r.o + lookAt_ + left_ + s.imageX * dx_ + top_ + s.imageY * dy_) - r.o).normalized();
 }

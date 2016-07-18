@@ -61,9 +61,19 @@ double Vector3d::lengthSquared() const
     return x * x + y * y + z * z;
 }
 
+/// Normalizes this vector to a vector with the same direction and magnitude
+/// one.
+void Vector3d::normalize()
+{
+    double oneOverLength = 1.0 / length();
+    x *= oneOverLength;
+    y *= oneOverLength;
+    z *= oneOverLength;
+}
+
 /// Calculates a vector that points in the same direction as this vector with
 /// length 1 and returns it.
-Vector3d Vector3d::normalize() const
+Vector3d Vector3d::normalized() const
 {
     return *this / length();
 }
