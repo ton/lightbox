@@ -4,8 +4,6 @@
 #include "core/itf/ray.h"
 #include "core/itf/sampling.h"
 
-#include <iostream>
-
 using namespace lb;
 
 /// Constructs a pinhole camera, where the image plane's origin is pointed to
@@ -27,5 +25,4 @@ void PinholeCamera::calculateRay(const Sample& s, Ray& r) const
 {
     r.o = location_;
     r.d = ((r.o + lookAt_ + left_ + s.imageX * dx_ + top_ + s.imageY * dy_) - r.o).normalize();
-    // std::cout << r.o << "\n";
 }
