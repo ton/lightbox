@@ -1,5 +1,7 @@
 #include "math/itf/vector_3d.h"
 
+#include "math/itf/constants.h"
+
 #include <cmath>
 #include <boost/assert.hpp>
 
@@ -15,10 +17,15 @@ Vector3d& Vector3d::operator+=(const Vector3d& v)
     return *this;
 }
 
-/// Returns whether this vector equals the given vector \a v.
+/// Returns whether this vector equals the given vector \a v. Comparison is done
+/// taking an absolute tolerance epsilon (lb::EPSILON) into account.
 bool Vector3d::operator==(const Vector3d& v) const
 {
-    return x == v.x && y == v.y && z == v.z;
+    // TODO Only using a simple absolute tolerance approach here. Might need
+    // relative tolerance comparison later on.
+    return std::fabs(x - v.x) < lb::EPSILON &&
+        std::fabs(y - v.y) < lb::EPSILON &&
+        std::fabs(z - v.z) < lb::EPSILON;
 }
 
 /// Scales this vector by a factor \a f and returns a reference to itself.
