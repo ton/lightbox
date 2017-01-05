@@ -1,5 +1,5 @@
-#ifndef LB_MATH_VECTOR_2D_H
-#define LB_MATH_VECTOR_2D_H
+#ifndef LB_VECTOR_2D_H
+#define LB_VECTOR_2D_H
 
 #include <ostream>
 

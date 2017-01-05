@@ -6,7 +6,7 @@
 using namespace lb;
 
 /// Adds the vector \a v to this vector.
-Vector2d &Vector2d::operator+=(const Vector2d &v)
+Vector2d& Vector2d::operator+=(const Vector2d& v)
 {
     x += v.x;
     y += v.y;
@@ -15,13 +15,13 @@ Vector2d &Vector2d::operator+=(const Vector2d &v)
 }
 
 /// Returns whether this vector equals the given vector \a v.
-bool Vector2d::operator==(const Vector2d &v) const
+bool Vector2d::operator==(const Vector2d& v) const
 {
     return x == v.x && y == v.y;
 }
 
 /// Scales this vector by a factor \a f and returns a reference to itself.
-Vector2d &Vector2d::operator*=(double f)
+Vector2d& Vector2d::operator*=(double f)
 {
     x *= f;
     y *= f;
@@ -38,7 +38,7 @@ Vector2d Vector2d::operator/(double f) const
 }
 
 /// Divides this vector by a factor \a f and returns a reference to itself.
-Vector2d &Vector2d::operator/=(double f)
+Vector2d& Vector2d::operator/=(double f)
 {
     assert(f != 0);
     double inv = 1.f / f;
@@ -67,14 +67,14 @@ Vector2d Vector2d::normalize() const
 }
 
 /// Streams a textual representation of the vector \a v to \a out.
-std::ostream &lb::operator<<(std::ostream &out, const Vector2d &v)
+std::ostream& lb::operator<<(std::ostream& out, const Vector2d& v)
 {
     out << "(" << v.x << ", " << v.y << ")";
 }
 
 /// Returns the absolute value of the dot product of the two vectors \a v and \a
 /// w.
-double absDot(const Vector2d &v, const Vector2d &w)
+double absDot(const Vector2d& v, const Vector2d& w)
 {
     return std::fabs(dot(v, w));
 }
