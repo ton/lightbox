@@ -14,11 +14,15 @@ class PinholeCamera : public Camera
 
         void calculateRay(const Sample& s, Ray& r) const;
 
+        void rotate();
+
     private:
         Vector3d lookAt_;
 
         Vector3d left_;
-        Vector3d top_;
+        Vector3d up_;
+
+        Point3d cLocation_;
 
         /// Vector in object space pointing to the next image sample along the
         /// horizontal axis of the film (from left to right).
@@ -26,6 +30,8 @@ class PinholeCamera : public Camera
         /// Vector in object space pointing to the next image location along the
         /// vertical axis of the film (from top to bottom).
         Vector3d dy_;
+
+        int rotationStep_;
 };
 
 }

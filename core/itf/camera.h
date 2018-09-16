@@ -25,6 +25,8 @@ class Camera
 
         void setLocation(const Vector3d& location) { location_ = location; }
 
+        virtual void rotate() = 0;
+
     protected:
         std::unique_ptr<Film> film_;
 

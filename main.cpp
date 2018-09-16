@@ -54,7 +54,7 @@ int main(int argc, char **argv)
 
     std::unique_ptr<lb::Film> film(std::make_unique<lb::MemoryFilm>(WINDOW_WIDTH, WINDOW_HEIGHT, offscreenBuffer.get()));
     std::unique_ptr<lb::Camera> camera(new lb::PinholeCamera(std::move(film),
-                lb::Vector3d(0.0, 0.0, 8.0), lb::Vector3d(0.0, 0.0, -8.0), lb::Vector3d(0.0, 1.0, 0.0)));
+                lb::Vector3d(0.0, 0.0, 4.0), lb::Vector3d(0.0, 0.0, -4.0), lb::Vector3d(0.0, 1.0, 0.0)));
 
     lb::Scene scene(
             std::make_unique<lb::RaycastIntegrator>(),

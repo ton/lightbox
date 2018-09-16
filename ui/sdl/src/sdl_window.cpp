@@ -113,6 +113,8 @@ void SdlWindow::show(Scene& scene)
             }
         }
 
+        scene.camera().rotate();
+
         // Create static noise.
         auto start = std::chrono::high_resolution_clock::now();
 

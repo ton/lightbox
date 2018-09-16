@@ -1,4 +1,5 @@
 set(SOURCES
+  src/matrix4x4.cpp
   src/vector_2d.cpp
   src/vector_3d.cpp)
 
